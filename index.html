@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Med Game: Modules & XP</title>
+<style>
+:root{--bg:#fff8ec;--ink:#1d2a4a;--card:#fff;--line:#1d2a4a;--yel:#ffc83d;--cor:#ff6b57;--mint:#5fd3a6;--sky:#8cc8ff;--mut:#5b6785;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121a30;--ink:#fff4dc;--card:#1c2745;--line:#fff4dc;--mut:#a9b3d1}}
+:root[data-theme="dark"]{--bg:#121a30;--ink:#fff4dc;--card:#1c2745;--line:#fff4dc;--mut:#a9b3d1}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;line-height:1.45;font-size:16px}
+main{max-width:520px;margin:0 auto;padding:14px 14px 50px}
+.card{background:var(--card);border:3px solid var(--line);border-radius:22px;padding:18px;box-shadow:6px 6px 0 var(--line)}
+h1{font-size:2.2rem;line-height:1.05;margin:0 0 8px;letter-spacing:-.02em}
+.pill{display:inline-block;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:999px;padding:4px 10px;font-weight:800;font-size:.9rem;margin:0 6px 6px 0}
+h2{margin:0 0 8px;font-size:1.3rem}
+p{margin:6px 0}
+small{color:var(--mut);font-weight:700}
+.bar{height:10px;background:rgba(128,128,128,.25);border-radius:999px;overflow:hidden;margin:6px 0 12px}
+.bar i{display:block;height:100%;background:var(--cor);transition:width .3s}
+.btn{font:inherit;font-weight:800;color:#1d2a4a;background:var(--yel);border:3px solid var(--line);border-radius:14px;padding:11px 16px;cursor:pointer;box-shadow:3px 3px 0 var(--line)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--line)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+button:focus-visible{outline:3px solid var(--cor);outline-offset:2px}
+.opt{display:block;width:100%;text-align:left;font:inherit;font-weight:600;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:12px;margin:8px 0;cursor:pointer}
+.opt.ok{background:var(--mint);color:#10301f}
+.opt.no{background:var(--cor);color:#2a0a05}
+.q{font-weight:800;font-size:1.12rem;margin:8px 0}
+.fb{min-height:3em;font-weight:600;margin:8px 0}
+.tbar{height:12px;background:rgba(128,128,128,.25);border-radius:999px;overflow:hidden;border:2px solid var(--line)}
+.tbar i{display:block;height:100%;width:100%;background:var(--mint)}
+.hero{background:var(--yel);color:#1d2a4a}
+.hero .bar{background:rgba(29,42,74,.2)}
+.big{font-size:2.6rem;font-weight:800;margin:0}
+.nav{display:block;width:100%;margin:10px 0;text-align:left;font-size:1.1rem}
+.lec{background:var(--bg);border:2px solid var(--line);border-radius:14px;padding:10px;margin:10px 0}
+.lt{font-weight:800;margin-bottom:8px}
+.tag{background:var(--line);color:var(--bg);font-size:.72rem;padding:2px 8px;border-radius:999px;margin-left:6px}
+.lv{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.lv .btn{padding:8px 4px;font-size:.9rem;text-align:center}
+.lv small{color:#1d2a4a}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.back{background:var(--card);box-shadow:none;margin-bottom:10px;padding:6px 12px}
+</style></head><body><main><div class="card" id="g"></div></main>
+<script>
+/* ===== CURRICULUM: module > subject > lectures. Lecture number = position in list (ids like "hbs.an.6") ===== */
+var CUR=[
+{id:"hbs",n:"HBS",e:"🧬",subs:[
+ {id:"an",n:"Anatomy",e:"🦴",lec:[
+  ["Lec 1: Introduction",1],["Lec 2: Skeletal system",1],["Lec 3: Articular system",1],["Lec 4: Muscular system",1],["Lec 5: Vascular system & lymphatics",1],
+  ["Lec 6: Gametogenesis",2],["Lec 7: Fertilization + cleavage",2],["Lec 8: Implantation + 2nd week",2],["Lec 9: Trilaminar disc",2]]},
+ {id:"hi",n:"Histology",e:"🔬",lec:[
+  ["Lec 1: Microtechnique & types of microscope",1],["Lec 2: Introduction & cell membrane structure",1],["Lec 3: Bulk transport & membrane modification",1],["Lec 4: Membranous organelles",1],["Lec 5: Non-membranous organelles",1],["Lec 6: Structure of the nucleus",1],["Lec 7: Cell inclusions",1],
+  ["Lec 8: Epithelium & simple epithelium",2],["Lec 9: Stratified & modified epithelium",2],["Lec 10: Glandular epithelium, basement membrane & junctions",2],["Lec 11: C.T. general characters & cells",2],["Lec 12: C.T. matrix & fibers",2]]}]},
+{id:"ccg",n:"CCG",e:"🧪",subs:[
+ {id:"bi",n:"Biology",e:"🧫",lec:[["Lec 1: DNA structure & organization",1],["Lec 2: DNA replication 1",1],["Lec 3: DNA replication 2",1],["Lec 4: RNA transcription",1]]},
+ {id:"hi",n:"Histology",e:"🔬",lec:[["Lec 1: Cell cycle & mitosis",1],["Lec 2: Meiosis",1]]}]}
+];
+
+/* ===== QUESTION BANK (empty). Add like this:
+QB["ccg.bi.4"]={
+ 1:[["Question?",["A","B","C"],0,"Explanation"], ...],   // level 1 Easy
+ 2:[...],                                                 // level 2 Medium
+ 3:[...]                                                  // level 3 Hard
+};  (answer = index of the correct option, starting at 0) ===== */
+var QB={};
+
+var LN={1:"Easy",2:"Medium",3:"Hard"},SEC={1:15,2:12,3:9},BASE={1:30,2:50,3:80},PER=200;
+var g=document.getElementById("g"),P={xp:0,best:{}},R=null,NAV={m:0,s:0},tmr=null,tl=0,tt=1,locked=false;
+try{var sv=JSON.parse(localStorage.getItem("med_p"));if(sv&&sv.best)P=sv}catch(e){}
+function save(){try{localStorage.setItem("med_p",JSON.stringify(P))}catch(e){}}
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function shuf(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function getQ(id,l){var b=QB[id];return b&&b[l]?b[l]:[]}
+function stopT(){clearInterval(tmr);tmr=null}
+function startT(sec,end){stopT();tt=sec;tl=sec;tmr=setInterval(function(){tl-=.1;var b=document.getElementById("tb");
+ if(b){b.style.width=Math.max(0,tl/tt*100)+"%";b.style.background=tl/tt<.3?"var(--cor)":"var(--mint)"}
+ if(tl<=0){stopT();end()}},100)}
+function lvl(){return Math.floor(P.xp/PER)+1}
+function xpBar(){return '<div class="bar"><i style="width:'+(P.xp%PER)/PER*100+'%"></i></div><small>'+(P.xp%PER)+' / '+PER+' XP to next level</small>'}
+
+function home(){
+ stopT();g.className="card hero";
+ var h='<h1>Med Game 🧬</h1><p>Pick a module, finish lectures and earn XP!</p><span class="pill">🎖️ Level '+lvl()+'</span><span class="pill">⭐ '+P.xp+' XP</span>'+xpBar()+'';
+ CUR.forEach(function(m,i){h+='<button class="btn nav" data-m="'+i+'">'+m.e+' '+m.n+'</button>'});
+ h+='<div class="row"><button class="btn back" id="rs">Reset progress</button></div>';
+ g.innerHTML=h;
+ g.querySelectorAll("[data-m]").forEach(function(b){b.onclick=function(){mod(+b.dataset.m)}});
+ document.getElementById("rs").onclick=function(){if(confirm("Delete all XP and stars?")){P={xp:0,best:{}};save();home()}};
+}
+function mod(mi){
+ stopT();g.className="card";var m=CUR[mi];
+ var h='<button class="btn back" id="bk">Back</button><h2>'+m.e+' '+m.n+'</h2><p>Pick a subject:</p>';
+ m.subs.forEach(function(s,i){h+='<button class="btn nav" data-s="'+i+'">'+s.e+' '+s.n+' <small>('+s.lec.length+' lectures)</small></button>'});
+ g.innerHTML=h;
+ document.getElementById("bk").onclick=home;
+ g.querySelectorAll("[data-s]").forEach(function(b){b.onclick=function(){sub(mi,+b.dataset.s)}});
+}
+function sub(mi,si){
+ stopT();g.className="card";NAV={m:mi,s:si};var m=CUR[mi],s=m.subs[si];
+ var h='<button class="btn back" id="bk">Back</button><h2>'+s.e+' '+m.n+' · '+s.n+'</h2><small>Finish a level to unlock the next one.</small>';
+ s.lec.forEach(function(L,i){
+  var id=m.id+"."+s.id+"."+(i+1);
+  h+='<div class="lec"><div class="lt">'+esc(L[0])+(L[1]==2?'<span class="tag">A2</span>':'')+'</div><div class="lv">';
+  for(var l=1;l<=3;l++){
+   var n=getQ(id,l).length,b=P.best[id+"#"+l],lock=l>1&&!P.best[id+"#"+(l-1)];
+   h+='<button class="btn" data-id="'+id+'" data-l="'+l+'" data-t="'+esc(L[0])+'"'+(!n||lock?' disabled':'')+'>'+LN[l]+'<br><small>'+(!n?'no questions':lock?'🔒 locked':b?'⭐'.repeat(b.stars):n+' Qs')+'</small></button>';
+  }
+  h+='</div></div>';
+ });
+ g.innerHTML=h;
+ document.getElementById("bk").onclick=function(){mod(mi)};
+ g.querySelectorAll(".lv .btn").forEach(function(b){b.onclick=function(){play(b.dataset.id,+b.dataset.l,b.dataset.t)}});
+}
+function play(id,l,t){
+ var qs=shuf(getQ(id,l).slice());if(!qs.length)return;
+ R={id:id,l:l,t:t,qs:qs,i:0,bad:0};showQ();
+}
+function showQ(){
+ var q=R.qs[R.i];locked=false;g.className="card";
+ var h='<small>'+esc(R.t)+' · '+LN[R.l]+'</small><div class="bar"><i style="width:'+R.i/R.qs.length*100+'%"></i></div><div class="tbar"><i id="tb"></i></div><p><small>Question '+(R.i+1)+' of '+R.qs.length+' · ❌ '+R.bad+' mistakes</small></p><div class="q">'+esc(q[0])+'</div>';
+ shuf(q[1].map(function(_,k){return k})).forEach(function(k){h+='<button class="opt" data-k="'+k+'">'+esc(q[1][k])+'</button>'});
+ g.innerHTML=h+'<div class="fb" id="fb" aria-live="polite"></div>';
+ g.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){pick(+b.dataset.k)}});
+ startT(SEC[R.l],function(){pick(-1)});
+}
+function pick(k){
+ if(locked)return;locked=true;stopT();var q=R.qs[R.i],fb=document.getElementById("fb"),right=k===q[2];
+ g.querySelectorAll(".opt").forEach(function(x){if(+x.dataset.k===q[2])x.classList.add("ok");else if(+x.dataset.k===k)x.classList.add("no");x.disabled=true});
+ if(!right)R.bad++;
+ fb.innerHTML=(right?"✅ Correct. ":(k<0?"⏰ Time's up. ":"❌ Wrong. "))+esc(q[3]||"")+'<br><button class="btn" id="nx" style="margin-top:10px">'+(R.i+1>=R.qs.length?"Finish":"Next")+'</button>';
+ document.getElementById("nx").onclick=function(){R.i++;if(R.i>=R.qs.length)finish();else showQ()};
+}
+function finish(){
+ var m=R.bad,xp=Math.round(BASE[R.l]*Math.max(.2,1-.2*m))+(m===0?10:0),stars=m===0?3:m<=2?2:1;
+ var key=R.id+"#"+R.l,old=P.best[key]||{xp:0,stars:0},gain=Math.max(0,xp-old.xp),before=lvl();
+ P.xp+=gain;P.best[key]={xp:Math.max(xp,old.xp),stars:Math.max(stars,old.stars)};save();
+ var h='<p class="big">'+"⭐".repeat(stars)+'</p><h2>'+LN[R.l]+' complete</h2><p>Mistakes: <b>'+m+'</b> of '+R.qs.length+'</p><p>This run: <b>'+xp+' XP</b>'+(m===0?' (perfect bonus +10)':'')+'<br>Added to your total: <b>+'+gain+' XP</b>'+(gain<xp&&old.xp?' <small>(only improvements over your best count)</small>':'')+'</p>'+(lvl()>before?'<p><b>🎉 Level up! You are now level '+lvl()+'.</b></p>':'')+xpBar()+'<div class="row"><button class="btn" id="rt">Retry</button>'+(R.l<3&&getQ(R.id,R.l+1).length?'<button class="btn" id="nl">Next level</button>':'')+'<button class="btn" id="bl">Lectures</button></div>';
+ g.innerHTML=h;var r=R;
+ document.getElementById("rt").onclick=function(){play(r.id,r.l,r.t)};
+ var nl=document.getElementById("nl");if(nl)nl.onclick=function(){play(r.id,r.l+1,r.t)};
+ document.getElementById("bl").onclick=function(){sub(NAV.m,NAV.s)};
+}
+home();
+</script></body></html>
