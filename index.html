@@ -420,7 +420,7 @@ if(P.run){var _r=P.run;P.st=_r.st;P.hist=_r.hist;P.sb=_r.sb;P.mk=_r.mk;P.cs=_r.c
 (function(){var o="\uD83E\uDDD1\u200D\u2695\uFE0F",s="🩺",a=[];P.avs.forEach(function(x){x=x===o?s:x;if(a.indexOf(x)<0)a.push(x)});P.avs=a;if(P.av===o)P.av=s})();
 document.documentElement.setAttribute("data-theme",P.theme);
 var DU=null,db=null;
-try{if(typeof firebase!=="undefined"){if(!firebase.apps.length)firebase.initializeApp({databaseURL:"https://med-game-leaderboard-default-rtdb.firebaseio.com"});db=firebase.database()}}catch(e){}
+try{if(typeof firebase!=="undefined"){if(!firebase.apps.length)firebase.initializeApp({databaseURL:"https://med-game02-99c74-default-rtdb.firebaseio.com"});db=firebase.database()}}catch(e){}
 var SHOP={items:[["freeze","⏱️ Time +5s","Adds 5 seconds to the current question",30],["stop","❄️ Time Freeze","Stops the timer on the current question",40],["fifty","✂️ 50/50","Removes wrong answers on the current question",35],["skip","⏭️ Skip","Skips a question with no penalty (no XP or coins for it)",45],["shield","🛡️ Mistake Shield","Forgives 1 mistake when scoring XP",50],["double","🪙 Double Coins","2x coins for one level",40]],
 themes:[["light","Classic Light",0],["dark","Classic Dark",0],["cyberpunk","Dark Cyberpunk",150],["biohazard","Biohazard Green",150],["gold","Gold Edition",300],["bubblegum","Bubblegum Pop",120],["ocean","Deep Ocean",120]],
 avs:[["🩺",0],["🦠",40],["🧠",60],["🫀",60],["🧬",80],["🐙",100],["🦴",100],["🩻",90],["💉",70],["🧪",70],["🫁",90],["🦷",80],["👁️",80]]};
