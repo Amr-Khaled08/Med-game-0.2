@@ -9,7 +9,7 @@
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;line-height:1.45;font-size:16px}
-main{max-width:520px;margin:0 auto;padding:14px 14px 50px}
+main{max-width:520px;margin:0 auto;padding:14px 14px 50px;position:relative}
 .card{background:var(--card);border:3px solid var(--line);border-radius:22px;padding:18px;box-shadow:6px 6px 0 var(--line)}
 h1{font-size:2.2rem;line-height:1.05;margin:0 0 8px;letter-spacing:-.02em}
 .pill{display:inline-block;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:999px;padding:4px 10px;font-weight:800;font-size:.9rem;margin:0 6px 6px 0}
@@ -20,7 +20,9 @@ small{color:var(--mut);font-weight:700}
 .bar i{display:block;height:100%;background:var(--cor);transition:width .3s}
 .btn{font:inherit;font-weight:800;color:#1d2a4a;background:var(--yel);border:3px solid var(--line);border-radius:14px;padding:11px 16px;cursor:pointer;box-shadow:3px 3px 0 var(--line)}
 .btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--line)}
-.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:disabled{background:var(--card);color:var(--mut);border-style:dashed;box-shadow:none;cursor:not-allowed}
+.btn:disabled small{color:var(--mut)}
+.btn small,.hero small{color:#1d2a4a}
 button:focus-visible{outline:3px solid var(--cor);outline-offset:2px}
 .opt{display:block;width:100%;text-align:left;font:inherit;font-weight:600;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:12px;margin:8px 0;cursor:pointer}
 .opt.ok{background:var(--mint);color:#10301f}
@@ -38,10 +40,158 @@ button:focus-visible{outline:3px solid var(--cor);outline-offset:2px}
 .tag{background:var(--line);color:var(--bg);font-size:.72rem;padding:2px 8px;border-radius:999px;margin-left:6px}
 .lv{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .lv .btn{padding:8px 4px;font-size:.9rem;text-align:center}
-.lv small{color:#1d2a4a}
 .row{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
-.back{background:var(--card);box-shadow:none;margin-bottom:10px;padding:6px 12px}
-</style></head><body><main><div class="card" id="g"></div></main>
+.btn.back{background:var(--card);color:var(--ink);box-shadow:none;margin-bottom:10px;padding:6px 14px}
+:root[data-theme="cyberpunk"]{--bg:#0d0221;--ink:#00f0ff;--card:#190a38;--line:#ff007f;--yel:#ff007f;--cor:#ff003c;--mint:#00f0ff;--sky:#7000ff;--mut:#9a4bff}
+:root[data-theme="biohazard"]{--bg:#0b1d0e;--ink:#55ff55;--card:#132e17;--line:#33cc33;--yel:#33cc33;--cor:#ff3300;--mint:#55ff55;--sky:#1a5e22;--mut:#2f8537}
+:root[data-theme="gold"]{--bg:#1a1400;--ink:#ffe680;--card:#332900;--line:#ffd700;--yel:#ffd700;--cor:#ff4500;--mint:#ffe680;--sky:#806600;--mut:#b39700}
+h3{margin:14px 0 4px;font-size:1.05rem}
+.shop{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:10px;margin:8px 0}
+.shop.me{background:var(--yel);color:#1d2a4a}
+.shop.me small{color:#1d2a4a}
+.shop .btn{padding:6px 10px;font-size:.85rem;white-space:nowrap}
+.pb{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.pw{flex:1 1 30%;padding:6px;font:inherit;font-size:.85rem;font-weight:800;background:var(--bg);color:var(--ink);border:2px solid var(--line);border-radius:10px;cursor:pointer}
+.pw:disabled{opacity:.45;cursor:not-allowed}
+.opp{background:var(--sky);color:#10243f;border:2px solid var(--line);border-radius:12px;padding:6px 12px;margin-bottom:10px;font-weight:700;font-size:.9rem}
+.code{font-size:2.4rem;font-weight:800;letter-spacing:.25em;text-align:center;margin:10px 0}
+input[type="text"]{font:inherit;font-weight:800;text-align:center;width:100%;padding:10px;border:3px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);margin:8px 0}
+:root[data-theme="bubblegum"]{--bg:#ffe3f1;--ink:#4a1d3a;--card:#fff;--line:#4a1d3a;--yel:#ff8fc8;--cor:#ff4f9a;--mint:#9be8d0;--sky:#b9a6ff;--mut:#8a5a7c}
+:root[data-theme="ocean"]{--bg:#06202f;--ink:#d6f4ff;--card:#0c3248;--line:#6fd3ff;--yel:#3fc1e8;--cor:#ff7a6b;--mint:#5fe3c0;--sky:#2a6f9a;--mut:#86b9d2}
+.cf{position:fixed;top:-30px;font-size:1.4rem;pointer-events:none;z-index:9;animation:cf 2.2s linear forwards}
+@keyframes cf{to{transform:translateY(110vh) rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.cf{display:none}}
+.card.shake{animation:sk .3s}
+@keyframes sk{0%,100%{transform:translate(0)}25%{transform:translate(-6px)}75%{transform:translate(6px)}}
+.meta{display:flex;justify-content:space-between;margin:4px 0}
+.hype{position:fixed;top:16%;left:50%;transform:translateX(-50%);z-index:10;background:var(--yel);color:#1d2a4a;border:3px solid var(--line);border-radius:999px;padding:8px 20px;font-weight:800;box-shadow:4px 4px 0 var(--line);pointer-events:none;white-space:nowrap;animation:hp 1.3s ease-out forwards}
+@keyframes hp{0%{transform:translate(-50%,14px) scale(.5);opacity:0}18%{transform:translate(-50%,0) scale(1.15);opacity:1}30%{transform:translate(-50%,0) scale(1)}80%{opacity:1}100%{transform:translate(-50%,-30px);opacity:0}}
+@media (prefers-reduced-motion:reduce){.hype{animation:none}}
+.mdl{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:50;display:grid;place-items:center;padding:20px}.mbox{max-width:360px;width:100%}.mbox p{font-weight:700;margin:0 0 6px}
+.hw{background:linear-gradient(145deg,var(--h1),var(--h2));color:#fff;border:3px solid var(--line);border-radius:18px;padding:14px;margin:8px 0;box-shadow:4px 4px 0 var(--line)}
+.hw .top{display:flex;align-items:center;gap:14px}
+.hw .ring{flex:none;width:96px;height:96px;margin:0}.hw .ring b{color:var(--ink);font-size:1.4rem}
+.hw h4{margin:0 0 4px;font-size:1.2rem}.hw p{margin:0}.hw small{color:#fff;opacity:.92;font-weight:700}
+.hw .wk{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 4px;text-align:center}
+.hw .wk div{background:rgba(0,0,0,.22);border-radius:12px;padding:8px 2px}
+.hw .wk b{display:block;font-size:1.15rem}.hw .wk small{font-size:.7rem}
+.ins{display:flex;gap:10px;align-items:center;background:var(--bg);color:var(--ink);border:2px solid var(--line);border-radius:12px;padding:9px 10px;margin:8px 0}
+.ins span{font-size:1.5rem}.ins small{color:var(--mut)}
+.btn.on{background:var(--yel);color:#10243f}
+.mt{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.col{display:flex;flex-direction:column;gap:8px}
+.mi{font:inherit;font-weight:700;font-size:.9rem;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:10px 6px;cursor:pointer;min-height:48px}
+.mi.sel{background:var(--yel);color:#1d2a4a;transform:scale(1.03)}
+.mi.ok{background:var(--mint);color:#10301f}
+.mi.no{background:var(--cor);color:#2a0a05}
+.ring{width:120px;height:120px;border-radius:50%;background:conic-gradient(var(--mint) calc(var(--p)*1%),rgba(128,128,128,.25) 0);display:grid;place-items:center;margin:6px auto;position:relative}
+.ring::before{content:"";position:absolute;inset:11px;background:var(--card);border-radius:50%}
+.ring b{position:relative;font-size:1.6rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;margin:10px 0}
+.stats div{background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:8px 4px}
+.stats b{display:block;font-size:1.15rem}
+.rv{background:var(--bg);border-left:5px solid var(--cor);border-radius:8px;padding:8px 10px;margin:6px 0}
+.tbar{transition:border-color .2s}
+.tbar i{transition:width .06s linear}
+.tbar.low{border-color:var(--cor);animation:pl .5s infinite}
+@keyframes pl{50%{transform:scaleY(1.7)}}
+.tc{text-align:right;font-weight:800;font-size:.9rem;margin:2px 0 4px}
+.nxb{height:5px;background:rgba(128,128,128,.25);border-radius:999px;overflow:hidden;margin:10px 0 4px}
+.nxb i{display:block;height:100%;width:0;background:var(--cor);animation:nx linear forwards}
+@keyframes nx{to{width:100%}}
+.card.fo{animation:fo .5s}
+.card.fn{animation:fn .5s}
+@keyframes fo{40%{box-shadow:0 0 0 6px var(--mint),6px 6px 0 var(--line)}}
+@keyframes fn{40%{box-shadow:0 0 0 6px var(--cor),6px 6px 0 var(--line)}}
+@media (prefers-reduced-motion:reduce){.tbar.low{animation:none}}
+:root{--h1:#6d4aff;--h2:#14b8a6}
+:root[data-theme="cyberpunk"]{--h1:#ff007f;--h2:#7000ff}
+:root[data-theme="biohazard"]{--h1:#1a8f2a;--h2:#0b6b5a}
+:root[data-theme="gold"]{--h1:#b8860b;--h2:#ff8c00}
+:root[data-theme="bubblegum"]{--h1:#ff4f9a;--h2:#9d7bff}
+:root[data-theme="ocean"]{--h1:#0b6fa4;--h2:#14b8a6}
+.card.hero2{position:relative;overflow:hidden;background:linear-gradient(145deg,var(--h1),var(--h2));color:#fff;text-align:center}
+.hero2 small{color:rgba(255,255,255,.92)}
+.hero2 .bar{background:rgba(255,255,255,.28)}
+.hero2 .bar i{background:#ffd23f}
+.mute{position:absolute;top:10px;right:10px;z-index:2;font-size:1.15rem;background:rgba(255,255,255,.22);border:2px solid rgba(255,255,255,.7);border-radius:50%;width:42px;height:42px;cursor:pointer;color:#fff}
+.mas{width:128px;height:128px;border-radius:50%;margin:6px auto 4px;display:grid;place-items:center;position:relative;cursor:pointer;background:conic-gradient(#ffd23f calc(var(--p)*1%),rgba(255,255,255,.3) 0);animation:fl 3.2s ease-in-out infinite}
+.mas::before{content:"";position:absolute;inset:8px;border-radius:50%;background:rgba(0,0,0,.28)}
+.mas span{position:relative;font-size:3.4rem;line-height:1}
+.mas em{position:absolute;bottom:-4px;right:-4px;background:#ffd23f;color:#1d2a4a;border:3px solid #fff;border-radius:999px;min-width:36px;height:36px;display:grid;place-items:center;font-style:normal;font-weight:800}
+.mas.bnc{animation:bn .5s}
+@keyframes fl{50%{transform:translateY(-8px)}}
+@keyframes bn{30%{transform:scale(1.2) rotate(-8deg)}60%{transform:scale(.95) rotate(6deg)}}
+.say{background:#fff;color:#1d2a4a;border-radius:16px;padding:8px 12px;margin:10px auto 12px;font-weight:700;display:inline-block;max-width:92%}
+.say.pop{animation:pp .35s}
+@keyframes pp{from{transform:scale(.8);opacity:.3}}
+.daily{background:#ffd23f;color:#1d2a4a;border-radius:12px;padding:6px 10px;font-weight:800;margin:0 0 10px}
+.play{display:block;width:100%;margin:12px 0 8px;padding:16px;font:inherit;font-weight:800;font-size:1.35rem;color:#1d2a4a;background:#ffd23f;border:3px solid #fff;border-radius:18px;box-shadow:0 5px 0 rgba(0,0,0,.3);cursor:pointer;animation:hb 2s ease-in-out infinite}
+.play:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(0,0,0,.3)}
+@keyframes hb{50%{transform:scale(1.03)}}
+.btn.quick{display:block;width:100%;margin:6px 0 4px;background:rgba(255,255,255,.95)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.tile{font:inherit;border:3px solid #fff;border-radius:18px;padding:14px 8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;box-shadow:0 4px 0 rgba(0,0,0,.3);animation:tp .45s backwards;color:#1d2a4a}
+.tile b{font-size:2rem;line-height:1.1}
+.tile span{font-weight:800}
+.tile small,.hero2 .tile small{color:inherit;opacity:.85}
+.tile:hover{transform:translateY(-3px) rotate(-1deg)}
+.tile:active{transform:translateY(3px)}
+@keyframes tp{from{transform:scale(.6);opacity:0}}
+.t-shop{background:#ff9a5a}
+.t-troph{background:#ffd23f}
+.t-lb{background:#9d7bff;color:#fff}
+.t-duel{background:#ff5d7a;color:#fff}
+.fl{position:absolute;font-size:1.6rem;opacity:.25;animation:dr 7s ease-in-out infinite;pointer-events:none}
+.f1{left:8%;top:12%}.f2{right:14%;top:30%;animation-delay:-2s}.f3{left:12%;top:52%;animation-delay:-4s}.f4{right:8%;top:6%;animation-delay:-1s}
+@keyframes dr{50%{transform:translateY(-14px) rotate(12deg)}}
+@media (prefers-reduced-motion:reduce){.mas,.play,.fl,.tile{animation:none}}
+.t-stats{background:#5fd3a6}
+.t-guide{background:#8cc8ff}
+.btn.dcb{background:#5fd3a6;color:#10301f;border-color:#fff}
+.info{background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.65);border-radius:16px;padding:12px;margin-top:14px}
+.info p{margin:6px 0}
+.ig{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}
+.ig div{background:rgba(0,0,0,.18);border-radius:12px;padding:8px 4px}
+.ig b{display:block;font-size:1.2rem}
+.hpb{display:inline-block;animation:sk .35s}
+.gd{text-align:right;font-family:"Segoe UI","Noto Naskh Arabic",Tahoma,system-ui,sans-serif}
+.gi{font-size:4.2rem;text-align:center;margin:6px 0;line-height:1.1}
+.gd h2{text-align:center;font-size:1.5rem}
+.gt{font-size:1.1rem;line-height:1.9}
+.dots{display:flex;justify-content:center;gap:6px;margin:14px 0}
+.dot{width:9px;height:9px;border-radius:50%;background:rgba(128,128,128,.4)}
+.dot.on{background:var(--cor);transform:scale(1.3)}
+.mkr{background:rgba(0,0,0,.18);border-radius:10px;padding:8px;margin:6px 0;text-align:left;font-size:.92rem}
+.homeb{position:absolute;top:24px;right:30px;z-index:8;display:none;align-items:center;gap:5px;font:inherit;font-weight:800;font-size:.88rem;color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:999px;padding:6px 13px;box-shadow:2px 2px 0 var(--line);cursor:pointer}
+.homeb.show{display:inline-flex}
+.homeb:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--line)}
+.homeb:focus-visible{outline:3px solid var(--cor);outline-offset:2px}
+.sh{display:flex;align-items:center;gap:12px;background:linear-gradient(145deg,var(--h1),var(--h2));color:#fff;border:3px solid var(--line);border-radius:18px;padding:12px;margin:8px 0;box-shadow:4px 4px 0 var(--line)}
+.sh small{color:rgba(255,255,255,.92)}
+.sh .bar{background:rgba(255,255,255,.3);margin:6px 0 4px}
+.sh .bar i{background:#ffd23f}
+.sav{position:relative;flex:none;width:70px;height:70px;border-radius:50%;background:rgba(0,0,0,.25);border:3px solid #fff;display:grid;place-items:center;font-size:2.2rem}
+.sav em{position:absolute;bottom:-6px;right:-6px;background:#ffd23f;color:#1d2a4a;border:2px solid #fff;border-radius:999px;min-width:28px;height:28px;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:.85rem}
+.sn{flex:1;min-width:0}
+.sn b{display:block;font-size:1.15rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sh .btn{flex:none;padding:8px 10px}
+.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sc{background:var(--c);color:#10243f;border:2px solid var(--line);border-radius:14px;padding:10px 4px;text-align:center;box-shadow:2px 2px 0 var(--line)}
+.sc span{display:block;font-size:1.3rem}
+.sc.sx{border-radius:20px 8px 20px 8px}.sc.sx span{font-size:1.65rem}
+.sc b{display:block;font-size:1.2rem}
+.sc small{color:#10243f;font-weight:800;font-size:.72rem}
+.ac{display:flex;align-items:center;gap:14px;background:var(--bg);border:2px solid var(--line);border-radius:14px;padding:12px}
+.ac p{margin:3px 0}
+.dyk{cursor:pointer}
+.dh{display:flex;justify-content:space-between;align-items:center}
+.dn{font-size:.75rem;opacity:.85}
+.df{min-height:3.4em;font-weight:600}
+.df.pop{animation:pp .35s}
+</style><script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+</head><body><main><div class="card" id="g"></div></main>
 <script>
 /* ===== CURRICULUM: module > subject > lectures. Lecture number = position in list (ids like "hbs.an.6") ===== */
 var CUR=[
@@ -64,39 +214,634 @@ QB["ccg.bi.4"]={
  3:[...]                                                  // level 3 Hard
 };  (answer = index of the correct option, starting at 0) ===== */
 var QB={};
+var M=function(q,p,e){return{t:"m",q:q,p:p,e:e}};
+var TF=["True","False"];
+QB["hbs.an.1"]={
+1:[["The plane that divides the body into anterior and posterior parts is the…",["Coronal plane","Transverse plane","Median plane","Paramedian plane"],0,"Coronal = vertical plane, front/back."],
+["Which plane divides the body into two EQUAL right and left halves?",["Mid-sagittal","Para-sagittal","Coronal","Transverse"],0,"Mid-sagittal (median) gives equal halves."],
+["In the anatomical position the palms face…",["Forwards","Backwards","Medially","Laterally"],0,"Palms forward, feet forward, arms by the side."],
+["The transverse plane is…",["Horizontal","Vertical and sagittal","Vertical and coronal","Oblique"],0,"Transverse (cross-section) = horizontal, upper/lower parts."]],
+2:[["'Proximal' means…",["Nearer to the origin of a structure","Farther from the origin","Nearer to the surface","On the same side"],0,"Proximal = near origin; distal = far."],
+["Ipsilateral structures lie on…",["The same side","Different sides","The front","The back"],0,"Ipsilateral = same side; contralateral = opposite sides."],
+["True or false: the para-sagittal plane divides the body into two equal halves.",TF,1,"That is the mid-sagittal plane. Para-sagittal gives UNEQUAL halves."],
+["Which is NOT a method of studying anatomy?",["Cooking","Dissection","Radiological anatomy","Endoscopy"],0,"Methods: dissection, surface anatomy, embryology, endoscopy, radiology, histology."],
+M("Match each term with its meaning",[["Proximal","Near the origin"],["Superficial","Near the surface"],["Cranial","Toward the head"],["Lateral","Away from the midline"]],"Anatomical terms of position.")],
+3:[["'Cranial and caudal' are the same as…",["Superior and inferior","Proximal and distal","Anterior and posterior","Medial and lateral"],0,"Cranial/cephalic = superior; caudal = inferior."],
+["The anterior surface of the hand is called…",["Palmar","Plantar","Dorsal","Caudal"],0,"Palmar = palm; plantar = sole; dorsal = back."],
+["Which plane is perpendicular to BOTH the mid-sagittal and coronal planes?",["Transverse","Para-sagittal","Median","Oblique"],0,"Transverse is horizontal."],
+["Which statement about the anatomical position is correct?",["Palms face anteriorly","The arm is flexed","Thumbs point medially","Lower limbs are apart"],0,"Erect, head forward, arms by side, palms forward, feet together."],
+M("Match each movement with its meaning",[["Flexion","Bending"],["Extension","Straightening"],["Abduction","Away from the midline"],["Adduction","Toward the midline"]],"Movement terms.")]
+};
+QB["hbs.an.2"]={
+1:[["How many bones are in the adult skeleton?",["206","186","226","300"],0,"The adult skeleton has 206 bones."],
+["The skeleton is divided into…",["Axial and appendicular","Cranial and caudal","Long and short","Somatic and visceral"],0,"Axial + appendicular skeleton."],
+["Bones of the skull cap, sternum and ribs are…",["Flat bones","Long bones","Short bones","Irregular bones"],0,"Flat bones."],
+["The vertebrae are an example of…",["Irregular bones","Long bones","Short bones","Sesamoid bones"],0,"Irregular bones."]],
+2:[["How many pairs of ribs are there?",["12","10","14","7"],0,"12 pairs of ribs."],
+["The largest sesamoid bone is the…",["Patella","Talus","Scaphoid","Pisiform"],0,"Patella, inside the quadriceps tendon."],
+["The shaft of a long bone is the…",["Diaphysis","Epiphysis","Metaphysis","Periosteum"],0,"Diaphysis = shaft; epiphysis = ends."],
+["True or false: the vertebral column has 33 vertebrae but only 26 bones.",TF,0,"Sacrum (5 fused) and coccyx (4 fused) reduce 33 to 26."],
+M("Match the bone type with an example",[["Long bone","Humerus"],["Short bone","Carpals"],["Pneumatic bone","Maxilla"],["Sesamoid bone","Patella"]],"Pneumatic bones contain air spaces such as the paranasal sinuses.")],
+3:[["Which cartilage is the site of increase in LENGTH of a growing bone?",["Epiphyseal cartilage","Periosteum","Medullary cavity","Articular cartilage"],0,"Epiphyseal cartilage (growth plate)."],
+["The region of the shaft next to the cartilage plate is the…",["Metaphysis","Diaphysis","Epiphysis","Periosteum"],0,"Metaphysis."],
+["Carpals, metacarpals and phalanges in one hand number…",["8, 5 and 14","7, 5 and 14","8, 5 and 12","7, 4 and 14"],0,"8 + 5 + 14 = 27 bones per hand."],
+["The tarsal bones in each foot number…",["7","8","5","14"],0,"7 tarsals, 5 metatarsals, 14 phalanges."],
+["Which is NOT a blood supply of a long bone?",["Portal vein","Nutrient artery","Periosteal arteries","Epiphyseal arteries"],0,"Bone is supplied by nutrient, periosteal, metaphyseal and epiphyseal arteries."],
+M("Match the vertebral region with its number",[["Cervical","7"],["Thoracic","12"],["Lumbar","5"],["Coccygeal","4"]],"7 + 12 + 5 + 5 (sacral) + 4 = 33 vertebrae.")]
+};
+QB["hbs.an.3"]={
+1:[["Joints are classified by tissue into fibrous, cartilaginous and…",["Synovial","Pivot","Hinge","Saddle"],0,"Fibrous, cartilaginous and synovial joints."],
+["Sutures are found only between bones of the…",["Skull","Spine","Pelvis","Hand"],0,"Sutures are skull joints."],
+["Synovial fluid is produced by the…",["Synovial membrane","Meniscus","Articular cartilage","Ligament"],0,"The synovial membrane lines the capsule and makes the fluid."],
+["The elbow joint is a…",["Hinge joint","Ball and socket joint","Pivot joint","Plane joint"],0,"Hinge: flexion and extension only."]],
+2:[["The joint between a tooth and its socket is a…",["Gomphosis","Syndesmosis","Suture","Symphysis"],0,"Gomphosis, bound by the periodontal ligament."],
+["The symphysis pubis is a…",["Secondary cartilaginous joint","Primary cartilaginous joint","Fibrous joint","Synovial joint"],0,"Secondary cartilaginous joints (symphyses) are united by fibrocartilage."],
+["True or false: the epiphyseal plate is a permanent joint.",TF,1,"Primary cartilaginous joints are temporary; the plate is later replaced by bone."],
+["The shoulder and hip are…",["Ball and socket joints","Hinge joints","Saddle joints","Pivot joints"],0,"Polyaxial ball-and-socket joints."],
+M("Match the joint type with an example",[["Hinge","Elbow"],["Pivot","Atlanto-axial"],["Saddle","Thumb carpometacarpal"],["Ellipsoid","Wrist"]],"Classification by shape of articular surfaces.")],
+3:[["Which joint type is UNIAXIAL?",["Pivot","Ellipsoid","Saddle","Ball and socket"],0,"Uniaxial: hinge and pivot. Biaxial: ellipsoid and saddle."],
+["Hilton's law: the nerve supplying a joint also supplies…",["The muscles moving it and the skin over their insertions","Only the capsule","Only the ligaments","The bone marrow"],0,"Hilton's law."],
+["Which intra-capsular structure is NOT supplied by the articular arterial plexus?",["Cartilage","Synovial membrane","Capsule","Ligaments"],0,"The plexus supplies all intracapsular structures except cartilages."],
+["Which is NOT a factor stabilizing synovial joints?",["Skin colour","Bony factors","Ligamentous factor","Muscular factor"],0,"Stability: bony, ligamentous and muscular factors."],
+["Which joint allows circumduction?",["Shoulder","Elbow","Inferior tibiofibular","Skull suture"],0,"Ball and socket joints allow circumduction."],
+M("Match the axis type with its joints",[["Uniaxial","Hinge, pivot"],["Biaxial","Ellipsoid, saddle"],["Polyaxial","Ball and socket"],["Plane","Gliding between carpals"]],"Classification by axes of movement.")]
+};
+QB["hbs.an.4"]={
+1:[["Which muscle type is voluntary?",["Skeletal","Cardiac","Smooth","All of them"],0,"Skeletal muscle is voluntary."],
+["Cardiac muscle is found in the…",["Heart","Stomach","Biceps","Skin"],0,"Cardiac muscle forms the heart wall."],
+["Which muscle forms coats in the walls of viscera?",["Smooth muscle","Skeletal muscle","Cardiac muscle","None"],0,"Smooth, non-striated, spindle-shaped cells."],
+["The usual fixed (proximal) attachment of a muscle is its…",["Origin","Insertion","Tendon","Belly"],0,"Origin is fixed; insertion is movable."]],
+2:[["Skeletal muscle is supplied by…",["Somatic nerves","Autonomic nerves only","No nerves","Vagus only"],0,"Somatic (motor and sensory) nerves."],
+["Which muscle has many small PERIPHERAL nuclei?",["Skeletal","Cardiac","Smooth","Cardiac and smooth"],0,"Cardiac has large central nuclei."],
+["True or false: smooth muscle is striated.",TF,1,"Smooth muscle is non-striated."],
+["The white, non-contractile part of a muscle is the…",["Tendon","Belly","Origin","Sphincter"],0,"Tendon (cord) or aponeurosis (flat sheet)."],
+M("Match the muscle with its feature",[["Cardiac","Intercalated discs"],["Smooth","Peristalsis"],["Skeletal","Voluntary"],["Aponeurosis","Flat tendon sheet"]],"Characters of the muscle types.")],
+3:[["Which muscle is BIPENNATE?",["Dorsal interossei","Deltoid","Tibialis anterior","Flexor pollicis longus"],0,"Deltoid is multipennate, tibialis anterior circumpennate, FPL unipennate."],
+["Brachialis and biceps are prime movers for…",["Flexion of the elbow","Extension of the elbow","Abduction of the shoulder","Neck rotation"],0,"Triceps is the antagonist during elbow flexion."],
+["Muscles that stabilize the origin or the joint for a prime mover are…",["Fixators","Antagonists","Synergists","Sphincters"],0,"Fixators (stabilizers)."],
+["Orbicularis oculi is a…",["Circular (sphincteral) muscle","Fusiform muscle","Quadrate muscle","Convergent muscle"],0,"Circular muscles surround an opening."],
+["The triceps brachii has how many heads?",["Three","Two","Four","One"],0,"Biceps = 2 heads, triceps = 3, digastric = 2 bellies."],
+M("Match the shape with an example muscle",[["Unipennate","Flexor pollicis longus"],["Multipennate","Deltoid"],["Convergent","Pectoralis major"],["Fusiform","Biceps brachii"]],"Muscle shapes.")]
+};
+QB["hbs.an.5"]={
+1:[["Arteries carry blood…",["Away from the heart","To the heart","Only to the lungs","Between veins"],0,"Arteries away, veins to the heart."],
+["Gas exchange takes place in the…",["Capillaries","Arteries","Veins","Lymph nodes"],0,"Capillaries are one cell thick."],
+["Which vessels have valves?",["Veins","Arteries","Both equally","Neither"],0,"Veins have valves to stop backflow."],
+["The largest lymphatic organ is the…",["Spleen","Thymus","Tonsil","Lymph node"],0,"The spleen."]],
+2:[["The only artery that carries deoxygenated blood is the…",["Pulmonary artery","Aorta","Coronary artery","Renal artery"],0,"It carries blood to the lungs."],
+["Systemic circulation runs from…",["Left ventricle to right atrium","Right ventricle to left atrium","Left atrium to right ventricle","Right atrium to left ventricle"],0,"Left ventricle → body → right atrium."],
+["True or false: arteries contain blood under low pressure.",TF,1,"Arteries = high pressure; veins = low pressure."],
+["The thymus is responsible for maturation of…",["T-lymphocytes","B-lymphocytes","Red cells","Platelets"],0,"T-cells mature in the thymus."],
+M("Match the lymph node group with its site",[["Axillary","Armpit"],["Inguinal","Groin"],["Cervical","Neck"],["Spleen","Upper left abdomen"]],"Clusters of lymph nodes.")],
+3:[["Which is an END artery?",["Central artery of the retina","Facial artery","Superficial temporal artery","Lingual artery"],0,"Occlusion of the central retinal artery causes blindness."],
+["In portal circulation blood passes through how many capillary beds before reaching a systemic vein?",["Two","One","Three","None"],0,"Two sets; the second set are sinusoids."],
+["Lymph capillaries are ABSENT from…",["Bone marrow and CNS","Skin dermis","Intestine","Lungs"],0,"Also absent in avascular tissues such as the epidermis."],
+["Why are some arteries tortuous?",["To avoid over-stretching during movement","To slow the blood","To raise pressure","To store blood"],0,"Tortuosity prevents unduly stretching."],
+["Examples of portal circulation are…",["Hepatic and hypothalamo-hypophyseal","Pulmonary and systemic","Coronary and renal","Carotid and jugular"],0,"Hepatic portal and hypothalamo-hypophyseal."],
+M("Match the structure with its feature",[["Facial artery","Tortuous"],["Vasa recta","End artery"],["Hepatic portal","Portal circulation"],["Lymph node","Filters lymph"]],"Special arteries and the lymphatic system.")]
+};
+QB["hbs.an.6"]={
+1:[["Gametogenesis in males is called…",["Spermatogenesis","Oogenesis","Spermiogenesis","Folliculogenesis"],0,"Spermatogenesis in males, oogenesis in females."],
+["Gametogenesis reduces the chromosome number to…",["1n (haploid)","2n","4n","3n"],0,"Fertilization restores 2n."],
+["Spermatogenesis takes place in the…",["Seminiferous tubules","Epididymis","Prostate","Seminal vesicle"],0,"Seminiferous tubules of the testis."],
+["Spermatogenesis begins at…",["Puberty","Birth","Fetal life","Menopause"],0,"From puberty (13–16 years) to old age."]],
+2:[["Oogenesis starts during…",["Fetal life","Puberty only","Fertilization only","Menopause"],0,"Starts in fetal life, continues after puberty and after fertilization."],
+["Spermiogenesis is…",["Transformation of spermatids into sperms","Mitosis of spermatogonia","Meiosis I","Fusion of gametes"],0,"Morphological transformation, no cell division."],
+["The Golgi apparatus forms the…",["Acrosomal cap","Tail","Mitochondrial sheath","Neck"],0,"It covers the anterior 2/3 of the nucleus."],
+["True or false: one spermatogonium gives 4 sperms, but one oogonium gives only 1 functional ovum.",TF,0,"The polar bodies degenerate."],
+M("Match the cell with its product",[["Primary spermatocyte","2 secondary spermatocytes"],["Secondary spermatocyte","2 spermatids"],["Spermatid","Mature sperm"],["Primary oocyte","Secondary oocyte + polar body"]],"Meiosis I and II.")],
+3:[["Chromosomes of a primary oocyte formed in fetal life:",["44 + 2X","22 + X","44 + XY","22 + Y"],0,"Diploid: 44 + 2X."],
+["Spermatogenesis lasts about…",["64 days","7 days","6 months","28 days"],0,"Roughly 2 months."],
+["The secondary oocyte completes meiosis II only if…",["It is fertilized","It is ovulated","It reaches the uterus","Puberty ends"],0,"It is arrested in metaphase II at ovulation."],
+["Which part of the sperm contains the mitochondria?",["Middle piece of the tail","Head","Acrosome","End piece"],0,"Mitochondria give energy for movement."],
+["No sperms in the semen is called…",["Azoospermia","Oligospermia","Necrospermia","Immotility"],0,"Oligospermia = <10 million/ml; necrospermia = dead sperms."],
+M("Match the term with its definition",[["Azoospermia","No sperms"],["Oligospermia","Under 10 million/ml"],["Necrospermia","Dead sperms above 42%"],["Seminal glands","60% of semen"]],"Abnormalities and composition of semen.")]
+};
 
-var LN={1:"Easy",2:"Medium",3:"Hard"},SEC={1:15,2:12,3:9},BASE={1:30,2:50,3:80},PER=200;
+QB["hbs.hi.1"]={
+1:[["Histology is the science that studies…",["Structure of cells and tissues using the microscope","Functions of organs only","Diseases of bones","Chemical drugs"],0,"Histology = microscopic structure of cells and tissues, correlated with function."],
+["Which microtechnique is the most common?",["Paraffin","Celloidin","Freezing","Smear"],0,"Paraffin is routine; celloidin is the most ideal; freezing is the most rapid."]],
+2:[["The first step of the paraffin technique is…",["Obtaining a small sample","Clearing","Embedding","Staining"],0,"Sample, fixation, dehydration, clearing, impregnation, embedding, sectioning."],
+["Xylol is used in clearing to…",["Replace alcohol and make the tissue transparent","Fix the tissue","Stain nuclei","Dissolve the fixative"],0,"Clearing replaces alcohol, dissolves paraffin and renders the tissue transparent."]],
+3:[["The best technique for rapid diagnosis during surgery is…",["Freezing (cryostat)","Paraffin","Celloidin","Electron microscopy"],0,"Frozen sections are ready in minutes and preserve lipids and enzymes."],
+M("Match each stain with its colour",[["Sudan III","Orange"],["Sudan black","Black"],["PAS","Magenta"],["Best's carmine","Red"]],"Special stains for lipids and carbohydrates.")]};
+QB["hbs.hi.2"]={
+1:[["The smallest structural and functional unit of the body is the…",["Cell","Tissue","Organ","System"],0,"Cell, tissue, organ, system, organism."],
+["True or false: prokaryotic cells have a nuclear envelope.",TF,1,"Prokaryotes have no nucleus; eukaryotes have a nuclear envelope."]],
+2:[["Which of these is a membranous organelle?",["Mitochondria","Centriole","Ribosome","Cilia"],0,"Centrioles and ribosomes are non-membranous."],
+["The fluid mosaic model of the membrane contains…",["Lipids 30%, proteins 60%, carbohydrates 10%","Lipids 60%, proteins 30%, carbohydrates 10%","Proteins 90%, lipids 10%","Carbohydrates 60%, lipids 30%"],0,"Proteins form the largest part (about 60%)."]],
+3:[["Under E/M the cell membrane appears as a…",["Trilaminar unit membrane","Single dark line","Beaded chain","It is not visible"],0,"Not visible by L/M; trilaminar by E/M."],
+["True or false: cholesterol in the membrane prevents deformity.",TF,0,"Cholesterol stabilises the membrane."]]};
+QB["hbs.hi.3"]={
+1:[["Active transport moves substances…",["Against the concentration gradient using energy","Along the gradient without energy","Only water","Only gases"],0,"Low to high concentration; needs ATP and carrier proteins."],
+["Which molecules cross by simple diffusion?",["O2 and CO2","Glucose","Na+","Proteins"],0,"Small fat-soluble molecules diffuse down their gradient."]],
+2:[["Phagocytosis is the engulfing of…",["Solid particles","Fluids","Ions","Gases"],0,"Phagocytosis = solid (phagosome); pinocytosis = fluid."],
+["Receptor-mediated endocytosis depends on…",["Clathrin-coated pits","Simple diffusion","Cilia","Microvilli"],0,"Cargo receptors cluster in clathrin-coated pits."]],
+3:[["Transcytosis is exemplified by the transport of…",["IgA and IgM across the cell","Glucose by a carrier","O2 across the membrane","Water by osmosis"],0,"Vesicles carry material from one side of the cell to the other."],
+["The correct order of cell signaling is…",["Reception, transduction, response","Response, reception, transduction","Transduction, reception, response","Reception, response, transduction"],0,"Reception, transduction, response."]]};
+QB["hbs.hi.4"]={
+1:[["The powerhouse of the cell is the…",["Mitochondrion","Golgi apparatus","Lysosome","Ribosome"],0,"Mitochondria make ATP by oxidative phosphorylation."],
+["The digestive system of the cell is the…",["Lysosome","Golgi apparatus","Centriole","Ribosome"],0,"Lysosomes contain more than 50 acid hydrolases (pH about 5)."]],
+2:[["Rough ER differs from smooth ER by having…",["Attached ribosomes","Steroid synthesis","Detoxification","Calcium storage"],0,"rER has ribosomes (ribophorins) and makes protein."],
+["The cis face of the Golgi receives vesicles from…",["Rough ER","Lysosomes","Plasma membrane","Mitochondria"],0,"Transfer vesicles from rER fuse with the convex cis face."]],
+3:[["Tubular cristae are typical of cells that secrete…",["Steroids","Proteins","Mucus","Glycogen"],0,"Globular cristae: protein cells; tubular: steroid cells."],
+["Residual bodies may accumulate as…",["Lipofuscin pigment","Glycogen","Ribosomes","Chromatin"],0,"Undigested material is exocytosed or stored as lipofuscin."]]};
+QB["hbs.hi.5"]={
+1:[["Ribosomes are the site of…",["Protein synthesis","ATP production","Lipid storage","Digestion"],0,"Ribonucleoprotein particles that make protein."],
+["The main protein of microfilaments is…",["Actin","Tubulin","Keratin","Lamin"],0,"Thin microfilaments are actin; thick ones are myosin."]],
+2:[["The wall of a centriole shows…",["9 triplets (9+0)","9 doublets + 2 singlets","13 filaments only","9+2 arrangement"],0,"No central microtubules in a centriole."],
+["Which peroxisome enzyme converts H2O2 into water and oxygen?",["Catalase","Oxidase","ATP synthetase","Collagenase"],0,"Catalase detoxifies hydrogen peroxide."]],
+3:[["Dynein moves toward which end of a microtubule?",["Minus (-) end","Plus (+) end","Both ends","Neither"],0,"Dynein goes to the minus end; kinesin to the plus end."],
+["Keratin intermediate filaments are found in…",["Epithelial cells","Muscle cells","Neurons","Mesodermal cells"],0,"Vimentin: mesoderm; desmin: muscle; neurofilaments: neurons."]]};
+QB["hbs.hi.6"]={
+1:[["The nucleus is mainly responsible for…",["Heredity and control of protein synthesis","ATP production","Waste removal","Lipid storage"],0,"It stores DNA and is the control center."],
+["Most human cells are…",["Mononuclear","Binuclear","Multinucleated","Without a nucleus"],0,"RBCs have no nucleus; osteoclasts are multinucleated."]],
+2:[["The outer nuclear membrane is continuous with…",["Rough ER","Golgi apparatus","Plasma membrane","Lysosomes"],0,"It is studded with ribosomes like the rER."],
+["Euchromatin is…",["Pale and active","Dark and inactive","Found only in RBCs","Condensed"],0,"Heterochromatin is dense and inactive."]],
+3:[["The nucleolus is mainly involved in…",["Ribosome (rRNA) production","DNA replication","Lipid storage","ATP production"],0,"A non-membranous basophilic mass, site of rRNA formation."],
+["Which nuclear shape is NOT common?",["Star-shaped","Oval","Kidney-shaped","Segmented"],0,"Common shapes: round, oval, kidney, segmented."]]};
+QB["hbs.hi.7"]={
+1:[["Cell inclusions differ from organelles because they…",["Are non-living and lack a membrane","Are membrane-bound","Are permanent","Produce ATP"],0,"Inclusions are temporary deposits."],
+["The shaft of a cilium and a flagellum shows…",["9+2 microtubules","9+0 triplets","9 triplets","13 filaments"],0,"9 peripheral doublets and 2 central singlets."]],
+2:[["The core of a microvillus is formed of…",["Actin microfilaments","Microtubules","Keratin","Collagen"],0,"Cross-linked actin in a terminal web; increases absorption area."],
+["Glycogen in the liver appears under E/M as…",["Rosette-shaped alpha particles","Single beta granules only","Large vacuoles","Crystals"],0,"Alpha particles are rosettes; beta granules are single."]],
+3:[["Reinke's crystals are found in the…",["Interstitial cells of the testis","Hepatocytes","Adipocytes","Muscle fibres"],0,"A crystal-type inclusion."],
+["Which one is an endogenous pigment?",["Lipofuscin","Carotene","Dust","Tattoo ink"],0,"Endogenous: hemoglobin, hemosiderin, melanin, lipofuscin."]]};
+QB["hbs.hi.8"]={
+1:[["Diffusion of gases in the alveoli is a function of…",["Simple squamous epithelium","Simple cubical","Simple columnar","Pseudostratified columnar"],0,"Thin flat cells suit diffusion and filtration."],
+["Epithelial tissue is…",["Avascular and rests on a basement membrane","Highly vascular","Rich in matrix","Free of junctions"],0,"Nutrition is by diffusion from the underlying C.T."]],
+2:[["Simple columnar epithelium of the intestine is specialised for…",["Secretion and absorption","Filtration","Diffusion","Protection only"],0,"Microvilli (brush border) increase the surface area."],
+["Thyroid follicles and renal convoluted tubules are lined by…",["Simple cubical epithelium","Simple squamous","Transitional","Stratified columnar"],0,"Secretion and reabsorption."]],
+3:[["In pseudostratified columnar epithelium…",["All cells touch the basement membrane","There are several true layers","All cells reach the surface","Nuclei lie at one level"],0,"One layer; nuclei at different levels."],
+["Pseudostratified ciliated columnar epithelium with goblet cells lines the…",["Nasal cavity and trachea","Urinary bladder","Esophagus","Skin"],0,"Cilia sweep mucus-trapped particles."]]};
+QB["hbs.hi.9"]={
+1:[["Which epithelium lines the urinary bladder?",["Transitional","Stratified squamous","Stratified cubical","Simple squamous"],0,"Transitional epithelium = uroepithelium."],
+["Stratified epithelium is classified according to…",["The shape of the superficial layer","The basal layer","The number of nuclei","The type of secretion"],0,"Named by the surface cells."]],
+2:[["Keratinized stratified squamous epithelium is found in the…",["Skin","Esophagus","Oral cavity","Cornea"],0,"The others are non-keratinized."],
+["Stratified cubical epithelium lines the…",["Ducts of sweat glands","Conjunctiva","Bladder","Alveoli"],0,"Two or three layers of cubical cells."]],
+3:[["When the bladder is full, transitional epithelium…",["Flattens and seems to have fewer layers","Becomes thicker","Becomes keratinized","Becomes ciliated"],0,"Cells stretch and become squamous."],
+["Stratified columnar epithelium is seen in the…",["Conjunctiva and large salivary ducts","Skin","Bladder","Esophagus"],0,"Protective and mucus secreting."]]};
+QB["hbs.hi.10"]={
+1:[["A gland that releases its secretion into blood vessels is…",["Endocrine","Exocrine","Merocrine","Apocrine"],0,"Exocrine glands use ducts."],
+["Which junction forms a seal between adjacent cells?",["Tight junction","Desmosome","Gap junction","Hemidesmosome"],0,"Zonula occludens (claudin and occludin)."]],
+2:[["Sebaceous glands are an example of…",["Holocrine glands","Merocrine glands","Apocrine glands","Endocrine glands"],0,"Whole cells are destroyed with their secretion."],
+["Hemidesmosomes connect epithelial cells to the…",["Basal lamina","Neighbouring cells","Apical membrane","Nucleus"],0,"They bind laminin through integrins."]],
+3:[["The transmembrane proteins of desmosomes are…",["Desmogleins and desmocollins","Claudin and occludin","Connexins","Integrins"],0,"They anchor keratin filaments through desmoplakin."],
+M("Match the junction with its protein",[["Tight junction","Claudin / occludin"],["Adherens junction","Cadherin"],["Gap junction","Connexin"],["Hemidesmosome","Integrin"]],"Each junction has its own proteins.")]};
+
+var LN={1:"Easy",2:"Medium",3:"Hard"},SEC={1:8,2:6,3:4},BASE={1:20,2:50,3:100},PER=200;
 var g=document.getElementById("g"),P={xp:0,best:{}},R=null,NAV={m:0,s:0},tmr=null,tl=0,tt=1,locked=false;
 try{var sv=JSON.parse(localStorage.getItem("med_p"));if(sv&&sv.best)P=sv}catch(e){}
 function save(){try{localStorage.setItem("med_p",JSON.stringify(P))}catch(e){}}
 function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function shuf(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
 function getQ(id,l){var b=QB[id];return b&&b[l]?b[l]:[]}
-function stopT(){clearInterval(tmr);tmr=null}
-function startT(sec,end){stopT();tt=sec;tl=sec;tmr=setInterval(function(){tl-=.1;var b=document.getElementById("tb");
- if(b){b.style.width=Math.max(0,tl/tt*100)+"%";b.style.background=tl/tt<.3?"var(--cor)":"var(--mint)"}
- if(tl<=0){stopT();end()}},100)}
+var lastTick=99;
+function stopT(){clearInterval(tmr);tmr=null;var w=document.querySelector(".tbar");if(w)w.classList.remove("low")}
+var tcb=null;
+function startT(sec,end){stopT();tcb=end;tt=sec;tl=sec;lastTick=99;
+ tmr=setInterval(function(){
+  tl-=.05;var f=Math.max(0,tl/tt),b=document.getElementById("tb"),c=document.getElementById("tc"),w=document.querySelector(".tbar"),th=Math.min(5,tt*.4),s=Math.ceil(Math.max(tl,0));
+  if(b){b.style.width=f*100+"%";b.style.background="hsl("+Math.round(f*130)+",80%,48%)"}
+  if(c)c.textContent="⏱ "+s+"s";
+  if(w)w.classList.toggle("low",tl<=th&&tl>0);
+  if(tl<=th&&tl>0&&s!==lastTick){lastTick=s;sfx(600+(Math.ceil(th)-s)*140,.09,"square");if(navigator.vibrate&&s<=3)navigator.vibrate(30)}
+  if(tl<=0){stopT();end()}},50)}
 function lvl(){return Math.floor(P.xp/PER)+1}
 function xpBar(){return '<div class="bar"><i style="width:'+(P.xp%PER)/PER*100+'%"></i></div><small>'+(P.xp%PER)+' / '+PER+' XP to next level</small>'}
 
-function home(){
- stopT();g.className="card hero";
- var h='<h1>Med Game 🧬</h1><p>Pick a module, finish lectures and earn XP!</p><span class="pill">🎖️ Level '+lvl()+'</span><span class="pill">⭐ '+P.xp+' XP</span>'+xpBar()+'';
- CUR.forEach(function(m,i){h+='<button class="btn nav" data-m="'+i+'">'+m.e+' '+m.n+'</button>'});
- h+='<div class="row"><button class="btn back" id="rs">Reset progress</button></div>';
- g.innerHTML=h;
- g.querySelectorAll("[data-m]").forEach(function(b){b.onclick=function(){mod(+b.dataset.m)}});
- document.getElementById("rs").onclick=function(){if(confirm("Delete all XP and stars?")){P={xp:0,best:{}};save();home()}};
+var D={xp:0,best:{},coins:0,items:{freeze:0,shield:0,double:0,stop:0,fifty:0,skip:0},av:"🩺",avs:["🩺"],confetti:0,themes:["light"],titles:["Student"],theme:"light",title:"Student",name:"Player"+Math.floor(1000+Math.random()*9000),id:"usr_"+Math.random().toString(36).substr(2,9),st:{correct:0,levels:0,perfect:0,wins:0,bs:0,ans:0,bought:0,close:0,dc:0},tr:{},nc:0,nt:0,hist:{},sb:{},seen:0,dcDone:"",mk:[]};
+for(var k in D)if(P[k]===undefined)P[k]=D[k];
+for(var ik in D.items)if(P.items[ik]===undefined)P.items[ik]=0;
+for(var sk in D.st)if(P.st[sk]===undefined)P.st[sk]=D.st[sk];
+if(!P.st.ans)P.st.ans=P.st.correct;
+var LOST="";
+if(P.run){var _r=P.run;P.st=_r.st;P.hist=_r.hist;P.sb=_r.sb;P.mk=_r.mk;P.cs=_r.cs||0;P.run=null;LOST="⚠️ You left a quiz in the middle, so that run was lost.";try{localStorage.setItem("med_p",JSON.stringify(P))}catch(e){}}
+(function(){var o="\uD83E\uDDD1\u200D\u2695\uFE0F",s="🩺",a=[];P.avs.forEach(function(x){x=x===o?s:x;if(a.indexOf(x)<0)a.push(x)});P.avs=a;if(P.av===o)P.av=s})();
+document.documentElement.setAttribute("data-theme",P.theme);
+var DU=null,db=null;
+try{if(typeof firebase!=="undefined"){if(!firebase.apps.length)firebase.initializeApp({databaseURL:"https://med-game-leaderboard-default-rtdb.firebaseio.com"});db=firebase.database()}}catch(e){}
+var SHOP={items:[["freeze","⏱️ Time +5s","Adds 5 seconds to the current question",30],["stop","❄️ Time Freeze","Stops the timer on the current question",40],["fifty","✂️ 50/50","Removes wrong answers on the current question",35],["skip","⏭️ Skip","Skips a question with no penalty (no XP or coins for it)",45],["shield","🛡️ Mistake Shield","Forgives 1 mistake when scoring XP",50],["double","🪙 Double Coins","2x coins for one level",40]],
+themes:[["light","Classic Light",0],["dark","Classic Dark",0],["cyberpunk","Dark Cyberpunk",150],["biohazard","Biohazard Green",150],["gold","Gold Edition",300],["bubblegum","Bubblegum Pop",120],["ocean","Deep Ocean",120]],
+avs:[["🩺",0],["🦠",40],["🧠",60],["🫀",60],["🧬",80],["🐙",100],["🦴",100],["🩻",90],["💉",70],["🧪",70],["🫁",90],["🦷",80],["👁️",80]]};
+var TR=[["first","🎓","First Steps","Finish any level",function(){return P.st.levels>=1}],
+["perf","💎","Flawless","Finish a level with 0 mistakes",function(){return P.st.perfect>=1}],
+["sch","📚","Scholar","Answer 50 questions correctly",function(){return P.st.correct>=50}],
+["mas","👑","Lecture Master","Get 3 stars on all 3 levels of one lecture",mast],
+["lv5","🚀","Rising Star","Reach player level 5",function(){return lvl()>=5}],
+["rich","💰","Collector","Own 200 coins",function(){return P.coins>=200}],
+["duel","⚔️","Duelist","Win a 1v1 duel",function(){return P.st.wins>=1}],
+["duel5","🥊","Arena Champion","Win 5 duels",function(){return P.st.wins>=5}],
+["ans100","💯","Century","Answer 100 questions",function(){return P.st.ans>=100}],
+["sch200","🧠","Bookworm","Answer 200 questions correctly",function(){return P.st.correct>=200}],
+["sch500","📖","Walking Textbook","Answer 500 questions correctly",function(){return P.st.correct>=500}],
+["str5","🔥","Hot Streak","Answer 5 in a row correctly",function(){return P.st.bs>=5}],
+["str10","⚡","Lightning","Answer 10 in a row (hint: Daily Challenge)",function(){return P.st.bs>=10}],
+["lev10","🎯","On a Roll","Finish 10 levels",function(){return P.st.levels>=10}],
+["lev50","🏅","Marathoner","Finish 50 levels",function(){return P.st.levels>=50}],
+["perf5","💠","Perfectionist","Finish 5 levels with 0 mistakes",function(){return P.st.perfect>=5}],
+["perf20","🔱","Untouchable","Finish 20 levels with 0 mistakes",function(){return P.st.perfect>=20}],
+["hard","🧗","Hard Mode","Get 3 stars on any Hard level",hardMast],
+["close","😅","Close Call","Finish a level with only 1 heart left",function(){return P.st.close>=1}],
+["lv10","🌟","Veteran","Reach player level 10",function(){return lvl()>=10}],
+["lv20","🌌","Legend","Reach player level 20",function(){return lvl()>=20}],
+["rich500","🏦","Treasure Hoarder","Own 500 coins",function(){return P.coins>=500}],
+["shop5","🛍️","Shopper","Buy 5 things in the shop",function(){return P.st.bought>=5}],
+["style","🎨","Fashionista","Own 3 themes",function(){return P.themes.length>=3}],
+["name","✏️","Fresh Identity","Change your player name",function(){return P.nc>=1}],
+["streak3","📅","Regular","Open the game 3 days in a row",function(){return(P.ds||0)>=3}],
+["streak7","🗓️","Week Warrior","Open the game 7 days in a row",function(){return(P.ds||0)>=7}],
+["dc1","🎯","Daily Challenger","Complete a Daily Challenge",function(){return P.st.dc>=1}],
+["dc7","🏹","Daily Devotee","Complete 7 Daily Challenges",function(){return P.st.dc>=7}]];
+function mast(){var c={};for(var k in P.best){if(P.best[k].stars==3){var i=k.split("#")[0];c[i]=(c[i]||0)+1}}for(var j in c)if(c[j]>=3)return true;return false}
+function checkTr(){var n=[];TR.forEach(function(t){if(!P.tr[t[0]]&&t[4]()){P.tr[t[0]]=1;P.coins+=50;n.push(t)}});save();return n}
+function submitXP(){if(!db||P.xp<=0)return;try{db.ref("lb_xp/"+P.id).set({id:P.id,name:P.name,title:P.title,xp:P.xp,t:Date.now()})}catch(e){}}
+function leaveDuel(){if(DU){try{DU.ref.off();DU.ref.child("players/"+P.id).remove()}catch(e){}DU=null}}
+var FACTS=["The adult skeleton has 206 bones 🦴","The patella is the largest sesamoid bone","The spleen is the largest lymphatic organ","T-cells mature in the thymus 🛡️","Only the pulmonary artery carries deoxygenated blood","Spermatogenesis takes about 64 days","33 vertebrae, but only 26 bones after fusion","Veins have valves. Arteries don't!","Oogenesis starts before birth 😮","Each wrist has 8 carpal bones","Capillaries are one cell thick","Bone marrow is the main site of blood formation 🩸","The femur is the longest and strongest bone in the body 🦵","The stapes in the middle ear is the smallest bone 👂","Red blood cells live for about 120 days 🩸","The skin is the largest organ of the body","The human body has 46 chromosomes (23 pairs) 🧬","Mitochondria have their own DNA","Collagen is the most abundant protein in the body","Epithelium has no blood vessels: it is nourished from the connective tissue below","Fertilization usually happens in the ampulla of the uterine tube","Implantation starts about 6 to 7 days after fertilization","The trilaminar disc forms in the 3rd week (gastrulation)","The sartorius is the longest muscle in the body","The pulmonary veins carry oxygenated blood to the left atrium ❤️","Lysosomes are the cell's digestive bags: full of hydrolytic enzymes","Cartilage and the cornea have no blood supply","The heart beats about 100,000 times a day ❤️","The gluteus maximus is the largest muscle by mass","Ribosomes make proteins; the rough ER is covered with them","Humans have about 600 skeletal muscles 💪","Bone is living tissue: it constantly remodels itself 🦴","The knee is the largest synovial joint in the body","Smooth muscle contracts without conscious control (involuntary)","The spleen filters old red blood cells 🩸","Cardiac muscle cells are linked by intercalated discs","Microvilli increase the absorptive surface of cells","The nucleolus is where ribosomal RNA is made","Gametogenesis halves the chromosome number: 46 → 23 🧬"];
+var DAILY="",HT=0,DEP=0;
+/* ===== v2 ADDITIONS: hearts, daily challenge, stats, guide, rename ===== */
+var DCN=10,DN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+function p2(n){return n<10?"0"+n:""+n}
+function dkey(d){d=d||new Date();return d.getFullYear()+"-"+p2(d.getMonth()+1)+"-"+p2(d.getDate())}
+function cairoKey(){try{var s=new Date().toLocaleDateString("en-CA",{timeZone:"Africa/Cairo"});if(/^\d{4}-\d{2}-\d{2}$/.test(s))return s}catch(e){}return dkey()}
+function hearts(n){n=Math.max(0,Math.min(3,+n||0));return"❤️".repeat(n)+"🖤".repeat(3-n)}
+function updHp(){var e=document.getElementById("hp");if(e){e.textContent=hearts(R.hp);e.classList.remove("hpb");void e.offsetWidth;e.classList.add("hpb")}}
+function hardMast(){for(var k in P.best)if(/#3$/.test(k)&&P.best[k].stars==3)return true;return false}
+function rec(src,ok){
+ var k=dkey(),h=P.hist[k]||(P.hist[k]={a:0,c:0,xp:0});h.a++;if(ok)h.c++;
+ if(src&&src!=="daily"){var s=src.split(".").slice(0,2).join("."),o=P.sb[s]||(P.sb[s]={a:0,c:0});o.a++;if(ok)o.c++}
+ P.st.ans++;
+ var ks=Object.keys(P.hist);if(ks.length>75){ks.sort();ks.slice(0,ks.length-60).forEach(function(x){delete P.hist[x]})}
 }
-function mod(mi){
+function subName(key){
+ var p=key.split(".");
+ for(var i=0;i<CUR.length;i++)if(CUR[i].id===p[0])for(var j=0;j<CUR[i].subs.length;j++)if(CUR[i].subs[j].id===p[1])return CUR[i].e+" "+CUR[i].n+" · "+CUR[i].subs[j].n;
+ return key;
+}
+function lastDays(n){var o=[];for(var i=n-1;i>=0;i--){var d=new Date(Date.now()-i*864e5),h=P.hist[dkey(d)]||{a:0,c:0,xp:0};o.push({d:DN[d.getDay()],a:h.a,c:h.c,xp:h.xp})}return o}
+var TIPS=["Finish a level with 0 mistakes for a bonus XP boost ⭐","The Daily Challenge gives bonus XP and coins once a day 🎯","Open the game every day to grow your streak and your daily reward 🔥","A wrong answer costs a heart ❤️ so read the explanations!","Use ✂️ 50/50 on the tough questions","Review your mistakes after each level 📝","Check 📋 Stats to see which subject needs more love"];
+function seedDay(){var k=cairoKey(),s=0;for(var i=0;i<k.length;i++)s+=k.charCodeAt(i);return s}
+var _deck=function(){var d=[],last=-1;return function(){if(!d.length){d=shuf(FACTS.map(function(_,i){return i}));if(d.length>1&&d[d.length-1]===last){d.unshift(d.pop())}}last=d.pop();return FACTS[last]}};
+var avFact=_deck(),dykFact=_deck();
+function infoCard(){
+ var sd=seedDay(),acc=P.st.ans?Math.round(P.st.correct/P.st.ans*100):0;
+ return '<div class="info dyk" id="dyk"><div class="dh"><b>💡 Did you know?</b><span class="dn">tap for more ✨</span></div><p class="df" id="df">'+esc(dykFact())+'</p></div>'+
+ '<div class="info"><b>📈 Your progress</b><div class="ig"><div><b>'+P.st.ans+'</b><small>answered</small></div><div><b>'+acc+'%</b><small>accuracy</small></div><div><b>🔥 '+(P.ds||1)+'</b><small>day streak</small></div></div><p><small>'+esc(TIPS[(sd*7)%TIPS.length])+'</small></p></div>';
+}
+function dykBind(){
+ var c=document.getElementById("dyk");if(!c)return;var iv=null;
+ function nx(snd){var t=document.getElementById("df");if(!t)return;t.textContent=dykFact();t.classList.remove("pop");void t.offsetWidth;t.classList.add("pop");if(snd)sfx(600+Math.random()*300,.08,"triangle")}
+ function rs(){clearInterval(iv);iv=setInterval(function(){if(!document.body.contains(c)){clearInterval(iv);return}nx(false)},12000)}
+ c.onclick=function(){nx(true);rs()};
+ var b=document.getElementById("dnx");if(b)b.onclick=function(e){e.stopPropagation();nx(true);rs()};
+ rs();
+}
+function endRun(){P.run=null;if(R.duel)duelFinish();else if(R.daily)dailyFinish();else if(R.mk)mkFinish();else if(R.rl)rlFinish();else finish()}
+
+/* ----- past mistakes notebook ----- */
+function mistake(q,ok,qt,at){
+ var L=P.mk||(P.mk=[]),i=-1;
+ for(var j=0;j<L.length;j++)if(L[j].q===qt){i=j;break}
+ if(ok){if(i>=0)L.splice(i,1);return}
+ var src=(q&&q.src)||R.id;
+ if(i>=0){var it=L.splice(i,1)[0];it.n=(it.n||1)+1;it.t=Date.now();L.unshift(it)}
+ else L.unshift({q:qt,a:at,s:src,n:1,t:Date.now()});
+ if(L.length>100)L.length=100;
+}
+function mkCard(){
+ var L=P.mk||[],h='<div class="info"><b>📝 Past mistakes ('+L.length+')</b>';
+ if(!L.length)h+='<p><small>Nothing saved yet. Wrong answers will appear here so you can review and practice them.</small></p>';
+ else{L.slice(0,3).forEach(function(x){h+='<div class="mkr"><b>'+esc(x.q)+'</b><br><small>✔ '+esc(x.a)+'</small></div>'});h+='<button class="btn quick" id="mk">See all & practice</button>'}
+ return h+'</div>';
+}
+function findQ(x){
+ for(var l=1;l<=3;l++){var a=getQ(x.s,l);for(var i=0;i<a.length;i++){var q=a[i];if((q.t==="m"?q.q:q[0])===x.q){q.src=x.s;return q}}}
+ return null;
+}
+function mistakesScreen(){
+ stopT();DEP=1;g.className="card";var L=P.mk||[];
+ var h='<button class="btn back" id="bk">Back</button><h2>📝 Past mistakes ('+L.length+')</h2><small>A question leaves this list once you answer it correctly later.</small>';
+ if(!L.length)h+='<p>Nothing here yet 🎉</p>';
+ else{
+  h+='<div class="row"><button class="btn" id="pr">🔁 Practice mistakes</button><button class="btn back" id="cl" style="margin:0">Clear all</button></div>';
+  L.forEach(function(x){h+='<div class="rv"><b>'+esc(x.q)+'</b><br><small>✔ '+esc(x.a)+'</small><br><small>'+esc(subName(x.s))+(x.n>1?' · missed '+x.n+'×':'')+'</small></div>'});
+ }
+ g.innerHTML=h;
+ document.getElementById("bk").onclick=home;
+ var pr=document.getElementById("pr");if(pr)pr.onclick=startMk;
+ var cl=document.getElementById("cl");if(cl)cl.onclick=function(){dlg({msg:"Clear all saved mistakes?",ok:"Clear"},function(){P.mk=[];save();mistakesScreen()})};
+}
+function startMk(){
+ var qs=[];(P.mk||[]).forEach(function(x){var q=findQ(x);if(q)qs.push(q)});
+ qs=shuf(qs).slice(0,10);
+ if(!qs.length){dlg({msg:"These questions are no longer available.",info:true});return}
+ R={id:"mistakes",l:2,t:"🔁 Mistakes practice",qs:qs,i:0,bad:0,coins:0,log:[],st:0,best:0,hp:3,mk:true,rw:false};
+ jingle([392,494,587,784],"square",.07);showQ();
+}
+function mkFinish(){
+ var r=R,tot=Math.max(1,r.log.length),wrong=r.log.filter(function(x){return!x.ok}),okn=tot-wrong.length,acc=Math.round(okn/tot*100),left=(P.mk||[]).length;
+ save();g.className="card";
+ g.innerHTML='<p class="big" style="text-align:center">'+(acc===100?"🏆":"💪")+'</p><h2 style="text-align:center">Practice done!</h2>'+
+ '<div class="stats"><div><b>✅ '+okn+'/'+tot+'</b><small>correct</small></div><div><b>'+hearts(r.hp)+'</b><small>hearts left</small></div><div><b>📝 '+left+'</b><small>still saved</small></div></div>'+
+ '<p style="text-align:center"><small>Questions you got right were removed from your mistakes list.</small></p>'+
+ '<div class="row"><button class="btn" id="mb">Back to mistakes</button><button class="btn back" id="hm2" style="margin:0">Home</button></div>';
+ if(acc>=90){burst(24);jingle([523,659,784,1047],"triangle",.2)}else jingle([392,330],"sine",.25);
+ document.getElementById("mb").onclick=mistakesScreen;
+ document.getElementById("hm2").onclick=home;
+}
+
+
+/* ----- Brain Roulette: 10 random questions, pick module + difficulty ----- */
+var RLS={m:0,d:0};
+function rlOpts(){var o=[["🌍 All modules",""]];CUR.forEach(function(m){(m.subs||[]).forEach(function(s){var p=m.id+"."+s.id+".";if(Object.keys(QB).some(function(k){return k.indexOf(p)===0}))o.push([m.e+" "+m.n+" · "+s.e+" "+s.n,p])})});return o}
+function rlPool(p,d){var a=[];Object.keys(QB).forEach(function(id){if(p&&id.indexOf(p)!==0)return;for(var l=1;l<=3;l++){if(d&&l!==d)continue;getQ(id,l).forEach(function(q){q.src=id;a.push(q)})}});return a}
+function rlMenu(){
+ stopT();DEP=1;g.className="card";var o=rlOpts();if(RLS.m>=o.length)RLS.m=0;
+ var h='<button class="btn back" id="bk">Back</button><h2>🎲 Brain Roulette</h2><p>10 random questions from the bank. Every spin is different!</p><h3>Module</h3>';
+ o.forEach(function(x,i){h+='<button class="btn nav'+(i===RLS.m?" on":"")+'" data-m="'+i+'">'+esc(x[0])+' <small>('+rlPool(x[1],RLS.d).length+')</small></button>'});
+ h+='<h3>Difficulty</h3><div class="row" style="flex-wrap:wrap">'+[[0,"🎲 Mixed"],[1,"🟢 Easy"],[2,"🟡 Medium"],[3,"🔴 Hard"]].map(function(x){return '<button class="btn'+(x[0]===RLS.d?" on":"")+'" data-d="'+x[0]+'">'+x[1]+'</button>'}).join("")+'</div><button class="play" id="go">🎲 Spin!</button>';
+ g.innerHTML=h;
+ document.getElementById("bk").onclick=home;document.getElementById("go").onclick=startRl;
+ g.querySelectorAll("[data-m]").forEach(function(b){b.onclick=function(){RLS.m=+b.dataset.m;rlMenu()}});
+ g.querySelectorAll("[data-d]").forEach(function(b){b.onclick=function(){RLS.d=+b.dataset.d;rlMenu()}});
+}
+function startRl(){
+ var o=rlOpts()[RLS.m]||["",""],qs=shuf(rlPool(o[1],RLS.d)).slice(0,10);
+ if(!qs.length){dlg({msg:"No questions available for this choice.",info:true});return}
+ R={id:"roulette",l:RLS.d||2,t:"🎲 Brain Roulette",qs:qs,i:0,bad:0,coins:0,log:[],st:0,best:0,hp:3,rl:true,rw:false};
+ jingle([392,494,587,784],"square",.07);showQ();
+}
+function rlFinish(){
+ var r=R,tot=Math.max(1,r.log.length),wrong=r.log.filter(function(x){return!x.ok}),okn=tot-wrong.length,acc=Math.round(okn/tot*100);
+ save();g.className="card";
+ g.innerHTML='<p class="big" style="text-align:center">'+(acc===100?"🏆":acc>=70?"🎉":"💪")+'</p><h2 style="text-align:center">Roulette done!</h2>'+
+ '<div class="stats"><div><b>✅ '+okn+'/'+tot+'</b><small>correct</small></div><div><b>🔥 '+r.best+'</b><small>best streak</small></div><div><b>'+hearts(r.hp)+'</b><small>hearts left</small></div></div>'+
+ '<p style="text-align:center"><small>Practice mode: no XP or coins. Mistakes are saved for review.</small></p>'+
+ (wrong.length?'<h3>📝 Review your mistakes</h3>'+wrong.map(function(x){return '<div class="rv"><b>'+esc(x.q)+'</b><br><small>✔ '+esc(x.a)+'</small></div>'}).join(""):'<p><b>🎯 Perfect spin!</b></p>')+
+ '<div class="row"><button class="btn" id="rs">🎲 Spin again</button><button class="btn" id="rm">Settings</button><button class="btn back" id="hm3" style="margin:0">Home</button></div>';
+ if(acc>=90){burst(24);jingle([523,659,784,1047],"triangle",.2)}else jingle([392,330],"sine",.25);
+ document.getElementById("rs").onclick=startRl;document.getElementById("rm").onclick=rlMenu;document.getElementById("hm3").onclick=home;
+}
+
+/* ----- out of hearts ----- */
+function gameOver(){
+ P.run=null;stopT();var r=R,tot=r.log.length,wrong=r.log.filter(function(x){return!x.ok}),okn=tot-wrong.length,acc=Math.round(okn/Math.max(1,tot)*100),nt=checkTr();
+ save();g.className="card";
+ g.innerHTML='<p class="big" style="text-align:center">💔</p><h2 style="text-align:center">Out of hearts!</h2>'+
+ '<p style="text-align:center">You answered <b>'+okn+'</b> of <b>'+tot+'</b> correctly ('+acc+'%). Retry and your hearts come back ❤️❤️❤️</p>'+
+ '<p style="text-align:center"><small>Unfinished runs give no XP or coins</small></p>'+
+ (nt.length?'<p><b>🏆 New trophy: '+nt.map(function(t){return t[1]+" "+t[2]}).join(", ")+' (+'+nt.length*50+' 🪙)</b></p>':"")+
+ (wrong.length?'<h3>📝 Review your mistakes</h3>'+wrong.map(function(x){return '<div class="rv"><b>'+esc(x.q)+'</b><br><small>✔ '+esc(x.a)+'</small></div>'}).join(""):"")+
+ '<div class="row"><button class="btn" id="rt">🔄 Retry</button><button class="btn back" id="bl" style="margin:0">'+(r.daily?"Menu":r.mk?"Mistakes":r.rl?"Roulette":"Lectures")+'</button></div>';
+ jingle([262,220,175],"sawtooth",.25);if(navigator.vibrate)navigator.vibrate([80,40,80]);
+ document.getElementById("rt").onclick=function(){if(r.daily)startDaily();else if(r.mk)startMk();else if(r.rl)startRl();else play(r.id,r.l,r.t)};
+ document.getElementById("bl").onclick=function(){if(r.daily)home();else if(r.mk)mistakesScreen();else if(r.rl)rlMenu();else sub(NAV.m,NAV.s)};
+}
+
+/* ----- daily challenge (same questions for everyone, seeded by Cairo date) ----- */
+function hash(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function dailyQs(){
+ var pool=[];
+ Object.keys(QB).sort().forEach(function(id){for(var l=1;l<=3;l++)getQ(id,l).forEach(function(q){q.src=id;pool.push(q)})});
+ var r=rng(hash("medgame-"+cairoKey()));
+ for(var i=pool.length-1;i>0;i--){var j=Math.floor(r()*(i+1)),t=pool[i];pool[i]=pool[j];pool[j]=t}
+ return pool.slice(0,DCN);
+}
+function startDaily(){
+ var qs=shuf(dailyQs().slice());if(!qs.length)return;
+ R={id:"daily",l:2,t:"🎯 Daily Challenge",qs:qs,i:0,bad:0,coins:0,log:[],st:0,best:0,hp:3,daily:true,key:cairoKey(),rw:P.dcDone!==cairoKey()};
+ jingle([392,494,587,784],"square",.07);showQ();
+}
+function dailyMenu(){
+ stopT();DEP=1;g.className="card";
+ var key=cairoKey(),done=P.dcDone===key,n=dailyQs().length;
+ g.innerHTML='<button class="btn back" id="bk">Back</button><h2>🎯 Daily Challenge</h2>'+
+ '<p>Everyone gets the <b>same '+n+' questions</b> today. You have 3 ❤️ and power-ups are off. A new challenge starts every day at midnight (Cairo time).</p>'+
+ '<div class="shop me"><div><b>'+(done?"✅ Completed today!":"🎁 Today\'s reward")+'</b><br><small>'+(done?"Come back tomorrow for a new one. You can replay for practice (no rewards).":"+40 XP and 🪙 30 + 10 for every heart left")+'</small></div></div>'+
+ '<div class="row"><button class="btn dcb" id="go"'+(n?"":" disabled")+'>'+(done?"🔄 Replay (practice)":"▶️ Start challenge")+'</button></div>'+
+ '<h3>🏅 Today\'s top players</h3><div id="dcb"><p><small>Loading…</small></p></div>';
+ document.getElementById("bk").onclick=home;
+ document.getElementById("go").onclick=startDaily;
+ function put(h){var e=document.getElementById("dcb");if(e)e.innerHTML=h}
+ if(!db){put("<p><small>The online ranking needs internet.</small></p>");return}
+ try{db.ref("daily/"+key).orderByChild("s").limitToLast(10).once("value",function(s){
+  var l=[];s.forEach(function(c){l.push(c.val())});l.sort(function(a,b){return b.s-a.s});
+  var h=l.length?"":"<p><small>Nobody has finished yet. Be the first!</small></p>";
+  l.forEach(function(r,i){h+='<div class="shop'+(r.id===P.id?" me":"")+'"><span>'+(["🥇","🥈","🥉"][i]||(i+1)+".")+" "+esc(r.name)+'</span><b>'+esc(r.ok)+' ✅ · '+hearts(r.hp)+'</b></div>'});
+  put(h)},function(){put("<p><small>Could not load the ranking.</small></p>")})}catch(e){put("<p><small>Could not load the ranking.</small></p>")}
+}
+function dailyFinish(){
+ var r=R,tot=Math.max(1,r.log.length),wrong=r.log.filter(function(x){return!x.ok}),okn=tot-wrong.length,acc=Math.round(okn/tot*100),first=P.dcDone!==r.key,xp=0,cn=0,before=lvl();
+ if(first){
+  xp=40;cn=30+r.hp*10+r.coins;P.xp+=xp;P.coins+=cn;P.dcDone=r.key;P.st.dc++;
+  var hh=P.hist[dkey()]||(P.hist[dkey()]={a:0,c:0,xp:0});hh.xp+=xp;
+  if(db){try{db.ref("daily/"+r.key+"/"+P.id).set({id:P.id,name:P.name,s:okn*10+r.hp*5,ok:okn,hp:r.hp,t:Date.now()})}catch(e){}}
+  submitXP();
+ }
+ var nt=checkTr();save();
+ g.className="card";
+ g.innerHTML='<div class="ring" id="rg" style="--p:0"><b>0%</b></div><h2 style="text-align:center">'+(acc===100?"Perfect day! 🏆":"Challenge complete! 🎉")+'</h2>'+
+ '<div class="stats"><div><b>✅ '+okn+'/'+tot+'</b><small>correct</small></div><div><b>'+hearts(r.hp)+'</b><small>hearts left</small></div><div><b>🔥 '+r.best+'</b><small>best streak</small></div></div>'+
+ (first?'<p style="text-align:center">Reward: <b>+'+xp+' XP</b> · <b>+'+cn+' 🪙</b> <small>(incl. answer coins)</small></p>':'<p style="text-align:center"><small>Practice run: no rewards (already claimed today).</small></p>')+
+ 
+ (nt.length?'<p><b>🏆 New trophy: '+nt.map(function(t){return t[1]+" "+t[2]}).join(", ")+' (+'+nt.length*50+' 🪙)</b></p>':"")+
+ (lvl()>before?'<p><b>🎉 Level up! You are now level '+lvl()+'.</b></p>':"")+xpBar()+
+ (wrong.length?'<h3>📝 Review your mistakes</h3>'+wrong.map(function(x){return '<div class="rv"><b>'+esc(x.q)+'</b><br><small>✔ '+esc(x.a)+'</small></div>'}).join(""):'<p><b>🎯 No mistakes to review!</b></p>')+
+ '<div class="row"><button class="btn" id="mn">Main menu</button><button class="btn back" id="rp" style="margin:0">🔄 Practice again</button></div>';
+ var rg=document.getElementById("rg"),n=0,iv=setInterval(function(){n=Math.min(acc,n+3);rg.style.setProperty("--p",n);rg.querySelector("b").textContent=n+"%";if(n>=acc)clearInterval(iv)},20);
+ if(acc>=90){burst(30);jingle([523,659,784,1047],"triangle",.2)}else{confetti();jingle([392,330],"sine",.25)}
+ document.getElementById("mn").onclick=home;
+ document.getElementById("rp").onclick=startDaily;
+}
+
+/* ----- stats + charts ----- */
+function progressCard(){
+ var days=lastDays(7),wk=0,wc=0,wx=0,tA=P.st.ans,acc=tA?Math.round(P.st.correct/tA*100):0;
+ days.forEach(function(d){wk+=d.a;wc+=d.c;wx+=d.xp});
+ var wacc=wk?Math.round(wc/wk*100):0;
+ var mood=!tA?["🌤️","Fresh start","Play your first level and I will start tracking your journey 🚀"]:tA<10?["🌱","Warming up","Just getting started. Keep going and the numbers will tell your story!"]:acc>=90?["🏆","Top form","You know your stuff! Keep that standard up."]:acc>=75?["🔥","Crushing it","Strong accuracy. You are on a great path!"]:acc>=50?["💪","Getting stronger","More than half right and climbing. Review the explanations to level up faster."]:["📚","Learning mode","Mistakes are how it sticks. Try the mistakes practice on the home page!"];
+ var h='<div class="hw"><div class="top"><div class="ring" style="--p:'+acc+'"><b>'+acc+'%</b></div><div><h4>'+mood[0]+' '+mood[1]+'</h4><p><small>'+mood[2]+'</small></p></div></div>'+
+ '<div class="wk"><div><b>'+wk+'</b><small>questions this week</small></div><div><b>'+(wk?wacc+"%":"-")+'</b><small>right this week</small></div><div><b>+'+wx+'</b><small>XP this week</small></div></div></div>';
+ var ks=Object.keys(P.sb).filter(function(k){return P.sb[k].a>=3}).sort(function(a,b){return P.sb[b].c/P.sb[b].a-P.sb[a].c/P.sb[a].a});
+ if(ks.length){var bs=ks[0],bp=Math.round(P.sb[bs].c/P.sb[bs].a*100);h+='<div class="ins"><span>💪</span><div><b>Your strongest subject</b><br><small>'+esc(subName(bs))+' · '+bp+'%</small></div></div>';
+  if(ks.length>1){var ws=ks[ks.length-1],wp=Math.round(P.sb[ws].c/P.sb[ws].a*100);if(wp<bp)h+='<div class="ins"><span>🌱</span><div><b>Needs a little love</b><br><small>'+esc(subName(ws))+' · '+wp+'%</small></div></div>'}}
+ var nt=null;for(var i=0;i<TR.length;i++)if(!P.tr[TR[i][0]]){nt=TR[i];break}
+ if(nt)h+='<div class="ins"><span>'+nt[1]+'</span><div><b>Next trophy: '+esc(nt[2])+'</b><br><small>'+esc(nt[3])+'</small></div></div>';
+ return h;
+}
+function stats(){
+ stopT();DEP=1;g.className="card";
+ var days=lastDays(7),tA=P.st.ans,tc=P.st.correct,acc=tA?Math.round(tc/tA*100):0,wk=0,wc=0,wx=0,pct=(P.xp%PER)/PER*100;
+ days.forEach(function(d){wk+=d.a;wc+=d.c;wx+=d.xp});
+ var wacc=wk?Math.round(wc/wk*100):0;
+ var cheer=!tA?"Play your first level and I'll start tracking your journey 🚀":acc>=80?"You're crushing it! Keep that fire going 🔥":acc>=50?"Nice progress! Every question makes you sharper 💪":"Every mistake is a step forward. You've got this 🌱";
+ var cards=[["✍️",tA,"questions done","#d6c4ff,#9b8cff"],["🌱",Math.max(0,tA-tc),"lessons learned","--cor"],["✅",P.st.levels,"levels cleared","--mint"],["✨",P.st.perfect,"perfect runs","#ffc2dd,#ff7fb5"],["🔥",P.st.bs,"best streak","--yel"],["⭐",P.xp,"XP earned","--yel"],["📅",P.ds||1,"days in a row","--mint"],["🎯",P.st.dc,"daily wins","--cor"],["🏅",Object.keys(P.tr).length+"/"+TR.length,"trophies","#ffd27a,#ff9a4d"]];
+ var h='<button class="btn back" id="bk">Back</button><h2>🪪 My Profile</h2>'+
+ '<p>Hey <b>'+esc(P.name)+'</b>! 👋 Here is how your journey is going.</p>'+
+ '<div class="sh"><div class="sav">'+P.av+'<em>'+lvl()+'</em></div><div class="sn"><b>'+esc(P.name)+'</b><small>'+esc(P.title)+' · Level '+lvl()+'</small><div class="bar"><i style="width:'+pct+'%"></i></div><small>'+(P.xp%PER)+' / '+PER+' XP to your next level</small></div><button class="btn" id="nm" aria-label="Edit name">✏️</button></div>'+
+ '<small>'+(P.nc<1?"Want a new name? Tap the pencil, your first change is free ✅":"Want another name? Grab a Name Change from the shop ("+P.nt+" owned)")+'</small>'+
+ '<h3>🏁 Your journey</h3><div class="sg">'+cards.map(function(c){var hx=c[3].charAt(0)==="#",gc=hx?c[3].split(","):null;return '<div class="sc'+(hx?' sx':'')+'" style="'+(hx?'background:linear-gradient(145deg,'+gc[0]+','+gc[1]+')':'--c:var('+c[3]+')')+'"><span>'+c[0]+'</span><b>'+c[1]+'</b><small>'+c[2]+'</small></div>'}).join("")+'</div>'+
+ '<h3>📈 Your progress</h3>'+progressCard();
+ var ks=Object.keys(P.sb).filter(function(k){return P.sb[k].a>0}).sort(function(a,b){return P.sb[b].a-P.sb[a].a});
+ h+='<h3>🧠 Your subjects</h3>';
+ if(!ks.length)h+='<p><small>Finish a quiz and your subjects will show up here 📚</small></p>';
+ ks.forEach(function(k){var o=P.sb[k],pc=Math.round(o.c/o.a*100),col=pc>=75?"--mint":pc>=50?"--yel":"--cor";h+='<div class="meta"><small>'+esc(subName(k))+'</small><b>'+pc+'% · '+o.c+'/'+o.a+'</b></div><div class="bar"><i style="width:'+pc+'%;background:var('+col+')"></i></div>'});
+ g.innerHTML=h;
+ document.getElementById("bk").onclick=home;
+ document.getElementById("nm").onclick=function(){renameFlow(stats)};
+}
+
+/* ----- rename: 1 free change, then Name Change items from the shop ----- */
+function renameFlow(back){
+ var free=P.nc<1;
+ if(!free&&P.nt<1){SMSG="✏️ Your free name change is used. Buy a Name Change here to change it again.";shop();return}
+ dlg({msg:free?"Pick a new player name (your first change is free):":"Pick a new player name (uses 1 Name Change):",input:true,def:P.name,ok:"Save"},function(n){
+  n=String(n).trim().substring(0,18);
+  if(n.length<2){dlg({msg:"The name needs at least 2 characters.",info:true});return}
+  if(n===P.name)return;
+  P.name=n;if(free)P.nc=1;else P.nt--;
+  save();submitXP();back();
+ });
+}
+function profileShop(){
+ return '<h3>Profile ✏️</h3><div class="shop"><div><b>✏️ Name Change</b> <small>(own '+P.nt+')</small><br><small>'+(P.nc<1?"Your first change is free. Extra changes use this item.":"Lets you change your player name once")+'</small></div><button class="btn" data-a="n" data-k="name" data-c="150">150 🪙</button></div>';
+}
+
+/* ----- Arabic first-run guide ----- */
+function GUIDE(){return[
+["👋","أهلاً بيك في Med Game!","دي لعبة هتساعدك تذاكر وتراجع محاضراتك وانت مبسوط 😄<br>الدليل ده هياخد دقيقة واحدة بس، وتقدر تفتحه تاني في أي وقت."],
+["📚","إزاي تلعب؟","1️⃣ دوس على ▶️ Play<br>2️⃣ اختار المادة وبعدها المحاضرة<br>3️⃣ كل محاضرة فيها 3 مستويات: سهل 🟢 ومتوسط 🟡 وصعب 🔴<br>خلّص مستوى عشان تفتح اللي بعده 🔓"],
+["❤️","القلوب","في كل كويز معاك <b>3 قلوب</b> ❤️❤️❤️<br>كل إجابة غلط (أو لو الوقت خلص ⏰) بتشيل منك قلب 💔<br>لو القلوب خلصت الكويز بيقف... بس متقلقش! أول ما تبدأ من جديد القلوب بترجع 3 تاني 💪"],
+["⏱️","الوقت والسلسلة","كل سؤال له وقت محدد، فركّز! 👀<br>لو جاوبت صح كذا مرة ورا بعض بتبدأ <b>سلسلة 🔥</b> وبتشوف رسايل تشجيع.<br>وبعد كل سؤال بيظهر الشرح، اقراه عشان المعلومة تثبت."],
+["⭐","النجوم والـ XP","بتاخد <b>XP</b> و<b>نجوم</b> (لحد 3 ⭐) على حسب أدائك.<br>لو خلّصت من غير ولا غلطة بتاخد بونس! 🎁<br>كل 200 XP بتطلع <b>لِفل</b> جديد 🎖️"],
+["🪙","الكوينز والمتجر","كل إجابة صح بتديك 🪙 كوينز.<br>من المتجر 🛍️ تقدر تشتري: مساعدات، ثيمات 🎨، أفاتارز 😎، صندوق الحظ 🎁، وتغيير الاسم ✏️"],
+["🧰","المساعدات (Power-ups)","بتظهر فوق السؤال وانت بتلعب:<br>⏱️ +5 ثواني<br>❄️ إيقاف الوقت<br>✂️ حذف إجابتين غلط<br>⏭️ تخطي السؤال<br>🛡️ درع يسامحك على غلطة في الـ XP<br>🪙 كوينز ×2<br><small>(القلب بيروح مع الغلط حتى لو الدرع شغال)</small>"],
+["🎯","التحدي اليومي","كل يوم في تحدي جديد فيه <b>"+DCN+" أسئلة</b> وهي نفسها لكل اللاعبين! 🌍<br>معاك 3 قلوب والمساعدات مقفولة.<br>أول مرة تخلّصه في اليوم بتاخد XP وكوينز، وبتشوف ترتيبك وسط الناس 🏅<br>بيتجدد كل يوم الساعة 12 بتوقيت القاهرة."],
+["🏆","الجوائز والبروفايل","في <b>"+TR.length+"</b> جائزة 🏆 وكل جائزة بتديك 50 🪙<br>وفي صفحة 🪪 My Profile هتلاقي مستواك ودقتك وإنجازاتك 🌟<br>📝 أخطاءك بتتحفظ تحت في الصفحة الرئيسية عشان تراجعها وتتدرب عليها.<br>🏠 وزرار Home اللي فوق على اليمين بيرجعك للقائمة الرئيسية (مش بيظهر وانت في نص الكويز). جوا الكويز فيه زرار Back بس بيحذرك: لو رجعت أو قفلت الصفحة في النص الكويز ده مش هيتحسب وتقدمه بيضيع ⚠️"],
+["⚔️","المنافسة والاسم","🥇 لوحة الصدارة بتوريك أحسن اللاعبين.<br>⚔️ في 1v1 بتتحدى صاحبك بكود من 4 حروف.<br>✏️ تقدر تغيّر اسمك <b>مرة واحدة ببلاش</b> من صفحة My Profile، وبعدها من المتجر بكوينز."],
+["🚀","جاهز؟","تقدر ترجع للدليل ده في أي وقت من زرار 📖 Guide في الصفحة الرئيسية.<br>يلا نذاكر ونكسب! 🩺✨"]
+]}
+function guide(i){
+ stopT();i=i||0;var S=GUIDE(),last=i>=S.length-1,s=S[i],dots="";g.className="card";
+ for(var k=0;k<S.length;k++)dots+='<span class="dot'+(k===i?" on":"")+'"></span>';
+ g.innerHTML='<div dir="rtl" lang="ar" class="gd"><div class="row" style="justify-content:space-between;margin-top:0"><small>'+(i+1)+' / '+S.length+'</small>'+(last?"":'<button class="btn back" id="sk" style="margin:0">تخطي</button>')+'</div>'+
+ '<div class="gi">'+s[0]+'</div><h2>'+s[1]+'</h2><p class="gt">'+s[2]+'</p><div class="dots">'+dots+'</div>'+
+ '<div class="row">'+(i>0?'<button class="btn back" id="pv" style="margin:0">→ السابق</button>':'')+'<button class="btn" id="nx" style="margin-inline-start:auto">'+(last?"يلا نبدأ 🚀":"التالي ←")+'</button></div></div>';
+ function fin(){P.seen=1;save();home()}
+ document.getElementById("nx").onclick=function(){if(last)fin();else guide(i+1)};
+ var sk=document.getElementById("sk");if(sk)sk.onclick=fin;
+ var pv=document.getElementById("pv");if(pv)pv.onclick=function(){guide(i-1)};
+}
+function daily(){
+ var t=new Date().toDateString();if(P.dl===t)return;
+ var y=new Date(Date.now()-864e5).toDateString();P.ds=(P.dl===y?(P.ds||0)+1:1);P.dl=t;
+ var r=Math.min(P.ds,7)*10;P.coins+=r;DAILY="🎁 Daily reward: +"+r+" 🪙 · "+P.ds+"-day streak 🔥";save();
+}
+function home(){
+ stopT();leaveDuel();daily();DEP=0;
+ var hr=new Date().getHours(),gt="Hello",pct=(P.xp%PER)/PER*100,dm=(LOST?LOST+(DAILY?" · ":""):"")+DAILY;DAILY="";LOST="";
+ var lastOk=P.last&&getQ(P.last.id,P.last.l).length;
+ var tiles=[["a1","🏆","Trophies",Object.keys(P.tr).length+"/"+TR.length,"t-troph"],["a2","🪪","My Profile","Lv "+lvl()+" · "+(P.st.ans?Math.round(P.st.correct/P.st.ans*100):0)+"%","t-stats"],["a3","🛍️","Shop",P.coins+" 🪙","t-shop"],["a4","🥇","Leaderboard","Top 50","t-lb"],["a5","⚔️","1v1 Duel","Challenge a friend","t-duel"],["a6","📖","Guide","دليل الاستخدام","t-guide"]];
+ g.className="card hero2";
+ g.innerHTML='<button class="mute" id="mt" aria-label="Toggle sound">'+(P.mute?"🔇":"🔊")+'</button><span class="fl f1">🧬</span><span class="fl f2">🦴</span><span class="fl f3">🫀</span><span class="fl f4">🧠</span>'+
+ '<div class="mas" id="mas" style="--p:'+pct+'"><span>'+P.av+'</span><em>'+lvl()+'</em></div>'+
+ '<div class="say" id="say">'+gt+', '+esc(P.name)+'! Tap me 👆</div>'+
+ (dm?'<div class="daily">'+dm+'</div>':"")+
+ '<div><span class="pill">⭐ '+P.xp+' XP</span><span class="pill">🪙 '+P.coins+'</span><span class="pill">🎖️ Level '+lvl()+'</span></div>'+xpBar()+
+ '<button class="play" id="a0">▶️ Play</button>'+
+ '<button class="btn quick dcb" id="dc">🎯 Daily Challenge '+(P.dcDone===cairoKey()?"✅":"· NEW ✨")+'</button>'+'<button class="btn quick" id="rl">🎲 Brain Roulette · 10 random</button>'+
+ (lastOk?'<button class="btn quick" id="qk">⚡ Continue: '+esc(P.last.t)+' · '+LN[P.last.l]+'</button>':"")+
+ '<div class="tiles">'+tiles.map(function(t,i){return '<button class="tile '+t[4]+'" id="'+t[0]+'" style="animation-delay:'+i*70+'ms"><b>'+t[1]+'</b><span>'+t[2]+'</span><small>'+t[3]+'</small></button>'}).join("")+'</div>'+infoCard()+mkCard();
+ document.getElementById("a0").onclick=function(){modules()};
+ [trophies,stats,shop,board,duelMenu,guide].forEach(function(f,i){document.getElementById("a"+(i+1)).onclick=function(){f()}});
+ document.getElementById("dc").onclick=dailyMenu;document.getElementById("rl").onclick=rlMenu;
+ var mk1=document.getElementById("mk");if(mk1)mk1.onclick=mistakesScreen;dykBind();
+ var qk=document.getElementById("qk");if(qk)qk.onclick=function(){play(P.last.id,P.last.l,P.last.t)};
+ document.getElementById("mt").onclick=function(){P.mute=!P.mute;save();this.textContent=P.mute?"🔇":"🔊"};
+ var mas=document.getElementById("mas"),say=document.getElementById("say");
+ mas.onclick=function(){
+  HT++;var msg=HT%5===0?"🎉 You found the party!":avFact();
+  say.textContent=msg;say.classList.remove("pop");mas.classList.remove("bnc");void say.offsetWidth;say.classList.add("pop");mas.classList.add("bnc");
+  sfx(520+Math.random()*400,.12,"triangle");if(HT%5===0){burst(24);jingle([523,659,784,1047],"triangle",.12)}
+ };
+}
+function modules(){DEP=1;
+ stopT();g.className="card";
+ var h='<button class="btn back" id="bk">Back</button><h2>Pick a module</h2>';
+ CUR.forEach(function(m,i){h+='<button class="btn nav" data-m="'+i+'">'+m.e+' '+m.n+'</button>'});
+ g.innerHTML=h;document.getElementById("bk").onclick=home;
+ g.querySelectorAll("[data-m]").forEach(function(b){b.onclick=function(){mod(+b.dataset.m)}});
+}
+var SMSG="";
+function confetti(){
+ if(P.confetti!==1)return;
+ var e=["🎉","✨","🧬","⭐","🪙"];
+ for(var i=0;i<30;i++){var d=document.createElement("div");d.className="cf";d.textContent=e[i%e.length];d.style.left=Math.random()*95+"vw";d.style.animationDelay=Math.random()*.8+"s";document.body.appendChild(d);setTimeout(function(x){x.remove()},3200,d)}
+}
+function shop(){
+ stopT();g.className="card";
+ var h='<button class="btn back" id="bk">Back</button><h2>🛍️ Shop</h2><p>Balance: <b>🪙 '+P.coins+'</b></p>'+(SMSG?'<div class="shop me"><b>'+SMSG+'</b></div>':"");SMSG="";
+ h+='<h3>🎁 Lucky Box</h3><div class="shop"><div><b>Mystery Box</b><br><small>Win 20–150 coins, a random power-up, or the 250 🪙 jackpot!</small></div><button class="btn" data-a="b" data-k="box" data-c="60">60 🪙</button></div><h3>Power-ups</h3>';
+ SHOP.items.forEach(function(i){h+='<div class="shop"><div><b>'+i[1]+'</b> <small>(own '+P.items[i[0]]+')</small><br><small>'+i[2]+'</small></div><button class="btn" data-a="i" data-k="'+i[0]+'" data-c="'+i[3]+'">'+i[3]+' 🪙</button></div>'});
+ h+='<h3>Themes 🎨</h3>';
+ SHOP.themes.forEach(function(t){var own=P.themes.indexOf(t[0])>=0;h+='<div class="shop"><div><b>'+t[1]+'</b></div><button class="btn" data-a="t" data-k="'+t[0]+'" data-c="'+t[2]+'">'+(own?(P.theme==t[0]?"Equipped":"Equip"):t[2]+' 🪙')+'</button></div>'});
+ h+='<h3>Avatars 😎</h3>';
+ SHOP.avs.forEach(function(a){var own=P.avs.indexOf(a[0])>=0;h+='<div class="shop"><div style="font-size:1.8rem">'+a[0]+'</div><button class="btn" data-a="v" data-k="'+a[0]+'" data-c="'+a[1]+'">'+(own?(P.av==a[0]?"Equipped":"Equip"):a[1]+' 🪙')+'</button></div>'});
+ h+=profileShop();h+='<h3>Effects ✨</h3><div class="shop"><div><b>🎉 Confetti Celebration</b><br><small>Confetti when you finish a level</small></div><button class="btn" data-a="f" data-k="confetti" data-c="120">'+(P.confetti>0?(P.confetti===1?"On":"Off"):"120 🪙")+'</button></div>';
+ g.innerHTML=h;
+ document.getElementById("bk").onclick=home;
+ g.querySelectorAll("[data-a]").forEach(function(b){b.onclick=function(){buy(b.dataset.a,b.dataset.k,+b.dataset.c)}});
+}
+function buy(a,k,c){
+ var own=a==="t"?P.themes.indexOf(k)>=0:a==="v"?P.avs.indexOf(k)>=0:a==="f"?P.confetti>0:false;
+ if(!own){
+  if(P.coins<c){SMSG="❌ Not enough coins";shop();return}
+  P.coins-=c;
+  P.st.bought=(P.st.bought||0)+1;if(a==="i")P.items[k]++;else if(a==="n"){P.nt++;SMSG="✅ Name Change added! Use ✏️ Edit name in 🪪 My Profile."}
+  else if(a==="t")P.themes.push(k);
+  else if(a==="v")P.avs.push(k);
+  else if(a==="f")P.confetti=1;
+  else if(a==="b"){
+   var r=Math.random();
+   if(r<.5){var w=20+Math.floor(Math.random()*131);P.coins+=w;SMSG="🎁 You won "+w+" 🪙!"}
+   else if(r<.9){var it=SHOP.items[Math.floor(Math.random()*SHOP.items.length)];P.items[it[0]]++;SMSG="🎁 You won a power-up: "+it[1]+"!"}
+   else{P.coins+=250;SMSG="🎰 JACKPOT! +250 🪙"}
+  }
+ }
+ if(a==="t"){P.theme=k;document.documentElement.setAttribute("data-theme",k)}
+ if(a==="v")P.av=k;
+ if(a==="f"&&own)P.confetti=P.confetti===1?2:1;
+ save();shop();
+}
+function trophies(){
+ checkTr();g.className="card";var n=0,h="";
+ TR.forEach(function(t){var on=P.tr[t[0]];if(on)n++;h+='<div class="shop"><div><b>'+(on?t[1]:"🔒")+' '+t[2]+'</b><br><small>'+t[3]+'</small></div><b>'+(on?"✅":"")+'</b></div>'});
+ g.innerHTML='<button class="btn back" id="bk">Back</button><h2>🏆 My Trophies ('+n+'/'+TR.length+')</h2><small>Every trophy gives +50 🪙</small>'+h;
+ document.getElementById("bk").onclick=home;
+}
+function board(){
+ g.className="card";
+ g.innerHTML='<button class="btn back" id="bk">Back</button><h2>🥇 Leaderboard</h2><p><b>'+esc(P.name)+'</b> <small>('+esc(P.title)+')</small> <button class="btn back" id="nm" style="padding:2px 10px;margin:0">Edit name</button></p><div id="lbx"><p>Loading…</p></div>';
+ document.getElementById("bk").onclick=home;
+ document.getElementById("nm").onclick=function(){renameFlow(board)};
+ function put(h){var e=document.getElementById("lbx");if(e)e.innerHTML=h}
+ if(!db){put("<p>The online leaderboard needs internet. Open the GitHub Pages version of the game.</p>");return}
+ db.ref("lb_xp").orderByChild("xp").limitToLast(50).once("value",function(s){
+  var l=[];s.forEach(function(c){l.push(c.val())});l.sort(function(a,b){return b.xp-a.xp});
+  var h=l.length?"":"<p>No scores yet. Be the first!</p>";
+  l.forEach(function(r,i){h+='<div class="shop'+(r.id===P.id?" me":"")+'"><span>'+(["🥇","🥈","🥉"][i]||(i+1)+".")+" "+esc(r.name)+' <small>('+esc(r.title||"Student")+')</small></span><b>'+r.xp+' XP</b></div>'});
+  put(h)},function(){put("<p>Could not load the leaderboard.</p>")});
+}
+function mod(mi){DEP=2;
  stopT();g.className="card";var m=CUR[mi];
  var h='<button class="btn back" id="bk">Back</button><h2>'+m.e+' '+m.n+'</h2><p>Pick a subject:</p>';
  m.subs.forEach(function(s,i){h+='<button class="btn nav" data-s="'+i+'">'+s.e+' '+s.n+' <small>('+s.lec.length+' lectures)</small></button>'});
  g.innerHTML=h;
- document.getElementById("bk").onclick=home;
+ document.getElementById("bk").onclick=modules;
  g.querySelectorAll("[data-s]").forEach(function(b){b.onclick=function(){sub(mi,+b.dataset.s)}});
 }
-function sub(mi,si){
+function sub(mi,si){DEP=3;
  stopT();g.className="card";NAV={m:mi,s:si};var m=CUR[mi],s=m.subs[si];
  var h='<button class="btn back" id="bk">Back</button><h2>'+s.e+' '+m.n+' · '+s.n+'</h2><small>Finish a level to unlock the next one.</small>';
  s.lec.forEach(function(L,i){
@@ -104,7 +849,7 @@ function sub(mi,si){
   h+='<div class="lec"><div class="lt">'+esc(L[0])+(L[1]==2?'<span class="tag">A2</span>':'')+'</div><div class="lv">';
   for(var l=1;l<=3;l++){
    var n=getQ(id,l).length,b=P.best[id+"#"+l],lock=l>1&&!P.best[id+"#"+(l-1)];
-   h+='<button class="btn" data-id="'+id+'" data-l="'+l+'" data-t="'+esc(L[0])+'"'+(!n||lock?' disabled':'')+'>'+LN[l]+'<br><small>'+(!n?'no questions':lock?'🔒 locked':b?'⭐'.repeat(b.stars):n+' Qs')+'</small></button>';
+   h+='<button class="btn" data-id="'+id+'" data-l="'+l+'" data-t="'+esc(L[0])+'"'+(!n||lock?' disabled':'')+'>'+LN[l]+'<br><small>'+(!n?'no questions':lock?'🔒 locked':(b?'⭐'.repeat(b.stars):n+' Qs')+(b?'<br>replay':'<br>+'+BASE[l]+' XP'))+'</small></button>';
   }
   h+='</div></div>';
  });
@@ -112,34 +857,214 @@ function sub(mi,si){
  document.getElementById("bk").onclick=function(){mod(mi)};
  g.querySelectorAll(".lv .btn").forEach(function(b){b.onclick=function(){play(b.dataset.id,+b.dataset.l,b.dataset.t)}});
 }
-function play(id,l,t){
- var qs=shuf(getQ(id,l).slice());if(!qs.length)return;
- R={id:id,l:l,t:t,qs:qs,i:0,bad:0};showQ();
+function play(id,l,t){var qs=shuf(getQ(id,l).slice());if(!qs.length)return;P.last={id:id,l:l,t:t};save();jingle([392,494,587,784],"square",.07);R={id:id,l:l,t:t,qs:qs,i:0,bad:0,coins:0,log:[],st:0,best:0,hp:3,rw:!P.best[id+"#"+l]};showQ()}
+var PW=[["freeze","⏱️ +5s"],["stop","❄️ Freeze"],["fifty","✂️ 50/50"],["skip","⏭️ Skip"],["shield","🛡️ Shield"],["double","🪙 2x"]];
+function pwr(){
+ if(R.duel||R.daily)return"";
+ var h='<div class="pb">';
+ PW.forEach(function(p){var n=P.items[p[0]],on=(p[0]==="shield"&&R.shield)||(p[0]==="double"&&R.dbl)||(p[0]==="fifty"&&R.fq===R.i);
+  h+='<button class="pw" data-p="'+p[0]+'"'+(n<1||on?" disabled":"")+'>'+p[1]+((p[0]==="shield"||p[0]==="double")&&on?" ON":" ("+n+")")+'</button>'});
+ return h+'</div>';
+}
+function bindP(){g.querySelectorAll(".pw").forEach(function(b){b.onclick=function(){usePwr(b.dataset.p)}})}
+function usePwr(t){
+ if(locked||P.items[t]<1)return;
+ var q=R.qs[R.i];
+ if(t==="freeze"){tl+=5;tt+=5}
+ else if(t==="stop"){stopT()}
+ else if(t==="shield"){if(R.shield)return;R.shield=1}
+ else if(t==="double"){if(R.dbl)return;R.dbl=1}
+ else if(t==="fifty"){
+  if(R.fq===R.i||q.t==="m")return;R.fq=R.i;var w=[];
+  g.querySelectorAll(".opt").forEach(function(b){if(+b.dataset.k!==q[2])w.push(b)});
+  shuf(w).slice(0,Math.min(2,w.length-1)).forEach(function(b){b.style.display="none"});
+ }
+ else if(t==="skip"){P.items[t]--;save();stopT();locked=true;R.i++;if(R.i>=R.qs.length)endRun();else showQ();return}
+ P.items[t]--;save();var e=document.getElementById("pw");if(e){e.innerHTML=pwr();bindP()}
+}
+function snapRun(){return JSON.parse(JSON.stringify({st:P.st,hist:P.hist,sb:P.sb,mk:P.mk,items:P.items,cs:P.cs||0}))}
+window.addEventListener("beforeunload",function(e){if(P.run){e.preventDefault();e.returnValue=""}});
+window.addEventListener("popstate",function(){if(P.run){try{history.pushState({q:1},"")}catch(e){}}});
+function dlg(o,cb){
+ var old=document.getElementById("mdl");if(old)old.remove();
+ var d=document.createElement("div");d.className="mdl";d.id="mdl";
+ var b=document.createElement("div");b.className="card mbox";
+ var p=document.createElement("p");p.textContent=o.msg;b.appendChild(p);
+ var inp=null;if(o.input){inp=document.createElement("input");inp.type="text";inp.maxLength=18;inp.value=o.def||"";b.appendChild(inp)}
+ var r=document.createElement("div");r.className="row";
+ var ok=document.createElement("button");ok.className="btn";ok.textContent=o.ok||"OK";r.appendChild(ok);
+ var no=null;if(!o.info){no=document.createElement("button");no.className="btn back";no.style.margin="0";no.textContent=o.cancel||"Cancel";r.appendChild(no)}
+ b.appendChild(r);d.appendChild(b);document.body.appendChild(d);
+ ok.onclick=function(){var v=inp?inp.value:true;d.remove();if(cb)cb(v)};
+ if(no)no.onclick=function(){d.remove();if(o.onNo)o.onNo()};
+ if(inp){inp.focus();inp.select()}
+}
+function quitRun(){
+ if(!R||document.getElementById("mdl"))return;
+ var r=R,was=!!tmr&&!locked,rem=tl,t0=tt;if(was)stopT();
+ var msg=r.duel?"Leave the duel? You will forfeit this match.":"Go back? This quiz will NOT count: no XP, no coins, and your answers and streak from it will be lost. Any power-ups you used are gone too.";
+ dlg({msg:msg,ok:r.duel?"Leave":"Leave quiz",cancel:"Keep playing",onNo:function(){if(was&&R===r&&!locked){startT(rem,tcb);tt=t0}}},function(){
+  stopT();locked=true;R=null;
+  if(r.duel){home();return}
+  var sn=P.run;if(sn){P.st=sn.st;P.hist=sn.hist;P.sb=sn.sb;P.mk=sn.mk;P.cs=sn.cs||0}
+  P.run=null;save();
+  if(r.daily)home();else if(r.mk)mistakesScreen();else if(r.rl)rlMenu();else sub(NAV.m,NAV.s);
+ });
+}
+document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("#qb");if(b)quitRun()});
+var AC=null;
+function jingle(a,t,d){a.forEach(function(f,i){setTimeout(function(){sfx(f,d||.15,t)},i*110)})}
+function sfx(f,d,t){if(P.mute)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==="suspended")AC.resume();var o=AC.createOscillator(),v=AC.createGain();o.type=t||"sine";o.frequency.value=f;v.gain.value=.12;o.connect(v);v.connect(AC.destination);o.start();v.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.stop(AC.currentTime+d)}catch(e){}}
+function burst(n){var e=["🎉","✨","⭐","🧬","🔥"];for(var i=0;i<n;i++){var d=document.createElement("div");d.className="cf";d.textContent=e[i%e.length];d.style.left=Math.random()*95+"vw";d.style.animationDelay=Math.random()*.6+"s";document.body.appendChild(d);setTimeout(function(x){x.remove()},3000,d)}}
+var HY=["","","Nice! 👍","Perfecto! 🔥","Great! 💪","Excellent 👌","Brilliant! ✨","Unstoppable! ⚡","Genius! 🧠","On fire! 🔥🔥","LEGENDARY! 👑"];
+function hype(n){
+ if(n<2)return;
+ var d=document.createElement("div");d.className="hype";d.textContent=n>10?"LEGENDARY x"+n+" 👑":HY[n];d.style.fontSize=Math.min(2.2,1.1+n*.1)+"rem";
+ document.body.appendChild(d);setTimeout(function(){d.remove()},1300);
+ if(n>=5)burst(n>=10?24:12);
+}
+function hdr(){
+ return '<button class="btn back" id="qb" style="margin:0 0 8px">← Back</button>'+(R.duel?'<div class="opp" id="op"></div>':"")+'<small>'+esc(R.t)+(R.daily||R.mk?"":' · '+LN[R.l])+'</small><div class="bar"><i style="width:'+R.i/R.qs.length*100+'%"></i></div><div id="pw">'+pwr()+'</div><div class="tbar"><i id="tb"></i></div><div class="tc" id="tc"></div><p class="meta"><small>Question '+(R.i+1)+' of '+R.qs.length+(R.duel?" · ⭐ "+R.score:"")+'</small><b>'+(R.duel?"":'<span id="hp">'+hearts(R.hp)+'</span> · ')+'🔥 '+R.st+'</b></p>';
 }
 function showQ(){
+ if(!R.duel&&!R.sn){R.sn=1;P.run=snapRun();R.st=P.cs||0;R.best=R.st;save();try{history.pushState({q:1},"")}catch(e){}}
  var q=R.qs[R.i];locked=false;g.className="card";
- var h='<small>'+esc(R.t)+' · '+LN[R.l]+'</small><div class="bar"><i style="width:'+R.i/R.qs.length*100+'%"></i></div><div class="tbar"><i id="tb"></i></div><p><small>Question '+(R.i+1)+' of '+R.qs.length+' · ❌ '+R.bad+' mistakes</small></p><div class="q">'+esc(q[0])+'</div>';
+ if(q.t==="m"){showMatch(q,hdr());if(R.duel)oppBar(opp());return}
+ var h=hdr()+'<div class="q">'+esc(q[0])+'</div>';
  shuf(q[1].map(function(_,k){return k})).forEach(function(k){h+='<button class="opt" data-k="'+k+'">'+esc(q[1][k])+'</button>'});
  g.innerHTML=h+'<div class="fb" id="fb" aria-live="polite"></div>';
  g.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){pick(+b.dataset.k)}});
- startT(SEC[R.l],function(){pick(-1)});
+ bindP();if(R.duel)oppBar(opp());
+ startT(Math.round(SEC[R.l]+(q[0].length+q[1].join("").length)/60),function(){pick(-1)});
+}
+function showMatch(q,head){
+ var idx=q.p.map(function(_,i){return i}),h=head+'<div class="q">'+esc(q.q)+'</div><small>Tap an item on the left, then its match on the right.</small><div class="mt"><div class="col">';
+ idx.forEach(function(i){h+='<button class="mi" data-l="'+i+'">'+esc(q.p[i][0])+'</button>'});
+ h+='</div><div class="col">';
+ shuf(idx.slice()).forEach(function(i){h+='<button class="mi" data-r="'+i+'">'+esc(q.p[i][1])+'</button>'});
+ g.innerHTML=h+'</div></div><div class="fb" id="fb" aria-live="polite"></div>';
+ var sel=null,got=0,miss=0,L=g.querySelectorAll("[data-l]"),Rb=g.querySelectorAll("[data-r]");
+ bindP();
+ function endM(ok,to){
+  var ans=q.p.map(function(p){return p[0]+" → "+p[1]}).join("; ");
+  done(ok,(ok?"✅ Perfect match! ":(to?"⏰ Time's up. ":"❌ "+miss+" wrong tap"+(miss>1?"s":"")+". "))+(ok?"":"Answers: "+esc(ans)+". ")+esc(q.e||""),q.q,ans);
+ }
+ L.forEach(function(b){b.onclick=function(){if(locked||b.disabled)return;L.forEach(function(x){x.classList.remove("sel")});sel=+b.dataset.l;b.classList.add("sel")}});
+ Rb.forEach(function(b){b.onclick=function(){
+  if(locked||b.disabled||sel===null)return;
+  if(+b.dataset.r===sel){
+   var lb=g.querySelector('[data-l="'+sel+'"]');lb.classList.remove("sel");lb.classList.add("ok");lb.disabled=true;b.classList.add("ok");b.disabled=true;sel=null;got++;sfx(700,.1);
+   if(got===q.p.length){locked=true;stopT();endM(miss===0)}
+  }else{miss++;b.classList.add("no");setTimeout(function(){b.classList.remove("no")},400);sfx(130,.2,"sawtooth")}
+ }});
+ startT(8+q.p.length*(R.l===1?5:R.l===2?4:3),function(){locked=true;endM(false,true)});
 }
 function pick(k){
- if(locked)return;locked=true;stopT();var q=R.qs[R.i],fb=document.getElementById("fb"),right=k===q[2];
+ if(locked)return;locked=true;stopT();
+ var q=R.qs[R.i],ok=k===q[2];
  g.querySelectorAll(".opt").forEach(function(x){if(+x.dataset.k===q[2])x.classList.add("ok");else if(+x.dataset.k===k)x.classList.add("no");x.disabled=true});
- if(!right)R.bad++;
- fb.innerHTML=(right?"✅ Correct. ":(k<0?"⏰ Time's up. ":"❌ Wrong. "))+esc(q[3]||"")+'<br><button class="btn" id="nx" style="margin-top:10px">'+(R.i+1>=R.qs.length?"Finish":"Next")+'</button>';
- document.getElementById("nx").onclick=function(){R.i++;if(R.i>=R.qs.length)finish();else showQ()};
+ done(ok,(ok?"✅ Correct. ":(k<0?"⏰ Time's up. ":"❌ Wrong. "))+esc(q[3]||""),q[0],q[1][q[2]]);
+}
+function done(ok,msg,qt,at){
+ var ex="",isLast=R.i+1>=R.qs.length;
+ R.log.push({q:qt,ok:ok,a:at});if(!R.duel){rec((R.qs[R.i]||{}).src||R.id,ok);mistake(R.qs[R.i],ok,qt,at)}
+ if(ok){
+  R.st++;if(R.st>R.best)R.best=R.st;if(R.st>P.st.bs)P.st.bs=R.st;
+  if(R.duel){var p=10+Math.round(Math.max(tl,0)/tt*10)+Math.min(R.st,5)*2;R.score+=p;ex=" +"+p+" pts.";try{DU.ref.child("players/"+P.id).update({score:R.score})}catch(e){}}
+  else{var c=3*(R.dbl?2:1);P.st.correct++;if(R.rw){R.coins+=c;ex=" +"+c+" 🪙"}}
+  var b0=523*(1+Math.min(R.st,8)*.05);if(isLast)jingle([523,659,784,1047,1319],"triangle",.2);else jingle([b0,b0*1.26],"triangle",.16);g.classList.add("fo");setTimeout(function(){g.classList.remove("fo")},500);hype(R.st);
+ }else{R.bad++;R.st=0;if(!R.duel){R.hp--;msg+=R.hp<=0?" 💔 Out of hearts!":" 💔 -1 heart";updHp()}if(isLast)jingle([392,494,587],"triangle",.2);else jingle([196,147],"sawtooth",.22);if(navigator.vibrate)navigator.vibrate(80);g.classList.add("fn");setTimeout(function(){g.classList.remove("fn")},500);g.classList.add("shake");setTimeout(function(){g.classList.remove("shake")},300)}
+ if(!R.duel)P.cs=R.st;
+ save();
+ var fb=document.getElementById("fb"),dl=ok?1500:(qt.length>0&&at&&String(at).length>40?4200:2800),dead=!R.duel&&R.hp<=0,last=R.i+1>=R.qs.length,go=false,run=R;
+ fb.innerHTML=msg+(ok?ex:"")+'<div class="nxb"><i style="animation-duration:'+dl+'ms"></i></div><small>'+(dead?"Tap to continue":last?"Tap to finish":"Tap to skip ahead")+'</small>';
+ function adv(){if(go||!document.body.contains(fb)||R!==run)return;go=true;if(dead){gameOver();return}R.i++;if(R.i>=R.qs.length)endRun();else showQ()}
+ fb.onclick=adv;setTimeout(adv,dl);
 }
 function finish(){
- var m=R.bad,xp=Math.round(BASE[R.l]*Math.max(.2,1-.2*m))+(m===0?10:0),stars=m===0?3:m<=2?2:1;
- var key=R.id+"#"+R.l,old=P.best[key]||{xp:0,stars:0},gain=Math.max(0,xp-old.xp),before=lvl();
- P.xp+=gain;P.best[key]={xp:Math.max(xp,old.xp),stars:Math.max(stars,old.stars)};save();
- var h='<p class="big">'+"⭐".repeat(stars)+'</p><h2>'+LN[R.l]+' complete</h2><p>Mistakes: <b>'+m+'</b> of '+R.qs.length+'</p><p>This run: <b>'+xp+' XP</b>'+(m===0?' (perfect bonus +10)':'')+'<br>Added to your total: <b>+'+gain+' XP</b>'+(gain<xp&&old.xp?' <small>(only improvements over your best count)</small>':'')+'</p>'+(lvl()>before?'<p><b>🎉 Level up! You are now level '+lvl()+'.</b></p>':'')+xpBar()+'<div class="row"><button class="btn" id="rt">Retry</button>'+(R.l<3&&getQ(R.id,R.l+1).length?'<button class="btn" id="nl">Next level</button>':'')+'<button class="btn" id="bl">Lectures</button></div>';
+ var tot=Math.max(1,R.log.length),wrong=R.log.filter(function(x){return!x.ok}),err=Math.round(wrong.length/tot*100),acc=100-err;
+ var m=Math.max(0,R.bad-(R.shield?1:0)),xp=Math.round(BASE[R.l]*Math.max(.2,1-.2*m))+(m===0?Math.round(BASE[R.l]*.2):0),stars=m===0?3:m<=2?2:1;
+ var key=R.id+"#"+R.l,old=P.best[key]||{xp:0,stars:0},first=!P.best[key],gain=first?xp:0,before=lvl(),cb=first?stars*10*(R.dbl?2:1):0;
+ P.xp+=gain;P.coins+=cb+(first?R.coins:0);if(first){P.st.levels++;if(R.hp===1)P.st.close++}if(m===0&&old.stars<3)P.st.perfect++;var hh=P.hist[dkey()]||(P.hist[dkey()]={a:0,c:0,xp:0});hh.xp+=gain;
+ P.best[key]={xp:Math.max(xp,old.xp),stars:Math.max(stars,old.stars)};
+ var nt=checkTr();save();submitXP();
+ var gr=acc===100?["S","Flawless! 🏆"]:acc>=90?["A","Excellent! 🎉"]:acc>=75?["B","Good job 👏"]:acc>=60?["C","Keep going 💪"]:["D","Review and retry 📚"];
+ var h='<div class="ring" id="rg" style="--p:0"><b>0%</b></div><p class="big" style="text-align:center">Grade '+gr[0]+'</p><h2 style="text-align:center">'+gr[1]+'</h2>'+
+ '<div class="stats"><div><b>✅ '+acc+'%</b><small>accuracy</small></div><div><b>❌ '+err+'%</b><small>error rate</small></div><div><b>🔥 '+R.best+'</b><small>best streak</small></div></div>'+
+ '<p style="text-align:center">'+"⭐".repeat(stars)+' · '+wrong.length+' mistake'+(wrong.length===1?"":"s")+' out of '+tot+' · '+hearts(R.hp)+'</p>'+
+ (first?'<p>XP this run: <b>'+xp+'</b>'+(m===0?" (perfect bonus +"+Math.round(BASE[R.l]*.2)+")":"")+' · added: <b>+'+gain+' XP</b><br>Coins: <b>+'+(R.coins+cb)+' 🪙</b></p>':'<p>🔁 Replay: no XP or coins (rewards are for the first time only).<br><small>Your stars can still improve.</small></p>')+
+ (nt.length?'<p><b>🏆 New trophy: '+nt.map(function(t){return t[1]+" "+t[2]}).join(", ")+' (+'+nt.length*50+' 🪙)</b></p>':"")+
+ (lvl()>before?'<p><b>🎉 Level up! You are now level '+lvl()+'.</b></p>':"")+xpBar()+
+ (wrong.length?'<h3>📝 Review your mistakes</h3>'+wrong.map(function(x){return '<div class="rv"><b>'+esc(x.q)+'</b><br><small>✔ '+esc(x.a)+'</small></div>'}).join(""):'<p><b>🎯 No mistakes to review!</b></p>')+
+ '<div class="row"><button class="btn" id="rt">Retry</button>'+(R.l<3&&getQ(R.id,R.l+1).length?'<button class="btn" id="nl">Next level</button>':"")+'<button class="btn" id="bl">Lectures</button></div>';
  g.innerHTML=h;var r=R;
+ var rg=document.getElementById("rg"),n=0,iv=setInterval(function(){n=Math.min(acc,n+3);rg.style.setProperty("--p",n);rg.querySelector("b").textContent=n+"%";if(n>=acc)clearInterval(iv)},20);
+ if(acc>=90){burst(30);jingle([523,659,784,1047],"triangle",.2)}else{confetti();jingle([392,330],"sine",.25)}
  document.getElementById("rt").onclick=function(){play(r.id,r.l,r.t)};
  var nl=document.getElementById("nl");if(nl)nl.onclick=function(){play(r.id,r.l+1,r.t)};
  document.getElementById("bl").onclick=function(){sub(NAV.m,NAV.s)};
 }
-home();
+/* ===== 1v1 DUEL ===== */
+function opp(){if(!DU)return null;var k=Object.keys(DU.pl).filter(function(x){return x!==P.id});return k.length?DU.pl[k[0]]:null}
+function duelMenu(){
+ stopT();g.className="card";
+ var h='<button class="btn back" id="bk">Back</button><h2>⚔️ 1v1 Duel</h2><p>Both players answer the same questions. Higher score wins.</p>';
+ if(!db)h+="<p>Duels need internet. Open the GitHub Pages version of the game.</p>";
+ else{
+  h+='<h3>Join a friend</h3><input type="text" id="cd" maxlength="4" placeholder="CODE"><button class="btn" id="jn">Join duel</button><h3>Create a room</h3><small>Pick the lecture and level to play:</small>';
+  var any=0;
+  CUR.forEach(function(m){m.subs.forEach(function(s){s.lec.forEach(function(L,i){var id=m.id+"."+s.id+"."+(i+1);for(var l=1;l<=3;l++){if(getQ(id,l).length){any=1;h+='<button class="opt" data-id="'+id+'" data-l="'+l+'" data-t="'+esc(m.n+" · "+L[0])+'">'+esc(m.n+" · "+s.n+" · "+L[0])+" — "+LN[l]+'</button>'}}})})});
+  if(!any)h+="<p>No questions yet. Add questions to create a duel room.</p>";
+ }
+ g.innerHTML=h;document.getElementById("bk").onclick=home;
+ if(!db)return;
+ document.getElementById("jn").onclick=function(){var c=document.getElementById("cd").value.trim().toUpperCase();if(c.length===4)joinRoom(c,null)};
+ g.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){
+  var id=b.dataset.id,l=+b.dataset.l,n=getQ(id,l).length,o=[];for(var i=0;i<n;i++)o.push(i);shuf(o);
+  var c="",a="ABCDEFGHJKMNPQRSTUVWXYZ23456789";for(var j=0;j<4;j++)c+=a[Math.floor(Math.random()*a.length)];
+  joinRoom(c,{id:id,l:l,t:b.dataset.t,o:o})}});
+}
+function joinRoom(code,meta){
+ DU={code:code,ph:"lobby",ready:false,pl:{},meta:meta,ref:db.ref("rooms/"+code)};
+ if(meta)DU.ref.child("meta").set(meta);
+ var me=DU.ref.child("players/"+P.id);me.set({name:P.name,ready:false,score:0,done:false});me.onDisconnect().remove();
+ DU.ref.on("value",function(s){
+  if(!DU)return;var v=s.val()||{};DU.pl=v.players||{};if(v.meta)DU.meta=v.meta;var o=opp();
+  if(DU.ph==="lobby")lobby(o);else if(DU.ph==="play")oppBar(o);else if(DU.ph==="end")duelEnd(o);
+  if(DU.ph==="lobby"&&o&&DU.ready&&o.ready&&DU.meta){DU.ph="play";startDuel()}
+ });
+}
+function lobby(o){
+ g.className="card";
+ g.innerHTML='<h2>Duel Lobby</h2><p>Share this code with your opponent:</p><div class="code">'+esc(DU.code)+'</div><p>'+(DU.meta?esc(DU.meta.t)+" · "+LN[DU.meta.l]:"Waiting for room info…")+'</p><p>'+(o?'⚔️ <b>'+esc(o.name)+'</b> '+(o.ready?"is ready!":"joined"):"Waiting for opponent…")+'</p><button class="btn" id="rd"'+(o&&DU.meta?"":" disabled")+'>'+(DU.ready?"Ready! Waiting…":"I'm ready")+'</button> <button class="btn back" id="bk">Leave</button>';
+ document.getElementById("bk").onclick=home;
+ document.getElementById("rd").onclick=function(){DU.ready=true;DU.ref.child("players/"+P.id).update({ready:true})};
+}
+function startDuel(){
+ var m=DU.meta,all=getQ(m.id,m.l),qs=m.o.map(function(i){return all[i]}).filter(Boolean);
+ if(!qs.length){g.innerHTML='<p>Your version does not have this room\'s questions. Update the game and try again.</p><button class="btn" id="bk">Back</button>';document.getElementById("bk").onclick=home;return}
+ R={id:m.id,l:m.l,t:m.t,qs:qs,i:0,bad:0,duel:true,score:0,log:[],st:0,best:0};showQ();
+}
+function oppBar(o){var e=document.getElementById("op");if(e)e.textContent=o?"⚔️ "+o.name+": ⭐ "+(o.score||0)+(o.done?" ✔":""):"⚔️ Opponent left"}
+function duelFinish(){DU.ph="end";DU.ref.child("players/"+P.id).update({done:true,score:R.score});duelEnd(opp())}
+function duelEnd(o){
+ var s=R.score,h='<p class="big">'+s+'</p>',os=o?(o.score||0):0;
+ if(!o)h+="<h2>Opponent left 🏳️</h2><p>You win by forfeit!</p>";
+ else if(!o.done)h+='<h2>Finished!</h2><p>Waiting for '+esc(o.name)+'… (now '+os+')</p>';
+ else h+=(s>os?"<h2>You win! 🏆</h2>":s<os?"<h2>You lost 💔</h2>":"<h2>Draw 🤝</h2>")+'<p>'+s+' vs '+esc(o.name)+': '+os+'</p>';
+ if(DU&&!DU.counted&&(!o||(o.done&&s>os))){DU.counted=1;P.st.wins++;checkTr()}
+ g.innerHTML=h+'<button class="btn" id="bk">Main menu</button>';
+ document.getElementById("bk").onclick=home;
+}
+document.addEventListener("click",function(e){
+ var b=e.target.closest&&e.target.closest("button");if(!b||b.disabled)return;
+ if(b.classList.contains("opt")||b.classList.contains("mi")||b.dataset.id||b.id==="mas")return;
+ if(b.classList.contains("pw")){sfx(880,.12,"sine");return}
+ sfx(b.classList.contains("back")?300:420+DEP*90,.07,"triangle");
+});
+(function(){var b=document.createElement("button");b.className="homeb";b.id="hmb";b.innerHTML="<span>🏠</span> Home";b.setAttribute("aria-label","Back to main menu");g.parentNode.appendChild(b);
+ function sync(){var hide=g.classList.contains("hero2")||!!g.querySelector(".gd")||!!g.querySelector(".tbar");b.classList.toggle("show",!hide)}
+ if(typeof MutationObserver!=="undefined")new MutationObserver(sync).observe(g,{childList:true,attributes:true,attributeFilter:["class"]});
+ b.onclick=home;sync()})();
+if(!P.seen)guide(0);else home();
 </script></body></html>
