@@ -389,13 +389,14 @@ QB["hbs.hi.10"]={
 3:[["The transmembrane proteins of desmosomes are…",["Desmogleins and desmocollins","Claudin and occludin","Connexins","Integrins"],0,"They anchor keratin filaments through desmoplakin."],
 M("Match the junction with its protein",[["Tight junction","Claudin / occludin"],["Adherens junction","Cadherin"],["Gap junction","Connexin"],["Hemidesmosome","Integrin"]],"Each junction has its own proteins.")]};
 
-var LN={1:"Easy",2:"Medium",3:"Hard"},SEC={1:8,2:6,3:4},BASE={1:20,2:50,3:100},PER=200;
+var LN={1:"Easy",2:"Medium",3:"Hard"},SEC={1:8,2:6,3:4},BASE={1:30,2:70,3:120},PER=100;
 var g=document.getElementById("g"),P={xp:0,best:{}},R=null,NAV={m:0,s:0},tmr=null,tl=0,tt=1,locked=false;
 try{var sv=JSON.parse(localStorage.getItem("med_p"));if(sv&&sv.best)P=sv}catch(e){}
 function save(){try{localStorage.setItem("med_p",JSON.stringify(P))}catch(e){}}
 function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function shuf(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
 function getQ(id,l){var b=QB[id];return b&&b[l]?b[l]:[]}
+var QPR=5; /* questions drawn per run from the bank */
 var lastTick=99;
 function stopT(){clearInterval(tmr);tmr=null;var w=document.querySelector(".tbar");if(w)w.classList.remove("low")}
 var tcb=null;
@@ -634,7 +635,7 @@ function dailyMenu(){
 function dailyFinish(){
  var r=R,tot=Math.max(1,r.log.length),wrong=r.log.filter(function(x){return!x.ok}),okn=tot-wrong.length,acc=Math.round(okn/tot*100),first=P.dcDone!==r.key,xp=0,cn=0,before=lvl();
  if(first){
-  xp=40;cn=30+r.hp*10+r.coins;P.xp+=xp;P.coins+=cn;P.dcDone=r.key;P.st.dc++;
+  xp=60;cn=30+r.hp*10+r.coins;P.xp+=xp;P.coins+=cn;P.dcDone=r.key;P.st.dc++;
   var hh=P.hist[dkey()]||(P.hist[dkey()]={a:0,c:0,xp:0});hh.xp+=xp;
   if(db){try{db.ref("daily/"+r.key+"/"+P.id).set({id:P.id,name:P.name,s:okn*10+r.hp*5,ok:okn,hp:r.hp,t:Date.now()})}catch(e){}}
   submitXP();
@@ -857,7 +858,7 @@ function sub(mi,si){DEP=3;
  document.getElementById("bk").onclick=function(){mod(mi)};
  g.querySelectorAll(".lv .btn").forEach(function(b){b.onclick=function(){play(b.dataset.id,+b.dataset.l,b.dataset.t)}});
 }
-function play(id,l,t){var qs=shuf(getQ(id,l).slice());if(!qs.length)return;P.last={id:id,l:l,t:t};save();jingle([392,494,587,784],"square",.07);R={id:id,l:l,t:t,qs:qs,i:0,bad:0,coins:0,log:[],st:0,best:0,hp:3,rw:!P.best[id+"#"+l]};showQ()}
+function play(id,l,t){var qs=shuf(getQ(id,l).slice()).slice(0,QPR);if(!qs.length)return;P.last={id:id,l:l,t:t};save();jingle([392,494,587,784],"square",.07);R={id:id,l:l,t:t,qs:qs,i:0,bad:0,coins:0,log:[],st:0,best:0,hp:3,rw:!P.best[id+"#"+l]};showQ()}
 var PW=[["freeze","⏱️ +5s"],["stop","❄️ Freeze"],["fifty","✂️ 50/50"],["skip","⏭️ Skip"],["shield","🛡️ Shield"],["double","🪙 2x"]];
 function pwr(){
  if(R.duel||R.daily)return"";
@@ -983,8 +984,8 @@ function done(ok,msg,qt,at){
 }
 function finish(){
  var tot=Math.max(1,R.log.length),wrong=R.log.filter(function(x){return!x.ok}),err=Math.round(wrong.length/tot*100),acc=100-err;
- var m=Math.max(0,R.bad-(R.shield?1:0)),xp=Math.round(BASE[R.l]*Math.max(.2,1-.2*m))+(m===0?Math.round(BASE[R.l]*.2):0),stars=m===0?3:m<=2?2:1;
- var key=R.id+"#"+R.l,old=P.best[key]||{xp:0,stars:0},first=!P.best[key],gain=first?xp:0,before=lvl(),cb=first?stars*10*(R.dbl?2:1):0;
+ var m=Math.max(0,R.bad-(R.shield?1:0)),xp=Math.round(BASE[R.l]*Math.max(.5,1-.1*m))+(m===0?Math.round(BASE[R.l]*.2):0),stars=m===0?3:m<=2?2:1;
+ var key=R.id+"#"+R.l,old=P.best[key]||{xp:0,stars:0},first=!P.best[key],gain=first?xp:Math.round(xp*.25),before=lvl(),cb=first?stars*10*(R.dbl?2:1):0;
  P.xp+=gain;P.coins+=cb+(first?R.coins:0);if(first){P.st.levels++;if(R.hp===1)P.st.close++}if(m===0&&old.stars<3)P.st.perfect++;var hh=P.hist[dkey()]||(P.hist[dkey()]={a:0,c:0,xp:0});hh.xp+=gain;
  P.best[key]={xp:Math.max(xp,old.xp),stars:Math.max(stars,old.stars)};
  var nt=checkTr();save();submitXP();
@@ -992,7 +993,7 @@ function finish(){
  var h='<div class="ring" id="rg" style="--p:0"><b>0%</b></div><p class="big" style="text-align:center">Grade '+gr[0]+'</p><h2 style="text-align:center">'+gr[1]+'</h2>'+
  '<div class="stats"><div><b>✅ '+acc+'%</b><small>accuracy</small></div><div><b>❌ '+err+'%</b><small>error rate</small></div><div><b>🔥 '+R.best+'</b><small>best streak</small></div></div>'+
  '<p style="text-align:center">'+"⭐".repeat(stars)+' · '+wrong.length+' mistake'+(wrong.length===1?"":"s")+' out of '+tot+' · '+hearts(R.hp)+'</p>'+
- (first?'<p>XP this run: <b>'+xp+'</b>'+(m===0?" (perfect bonus +"+Math.round(BASE[R.l]*.2)+")":"")+' · added: <b>+'+gain+' XP</b><br>Coins: <b>+'+(R.coins+cb)+' 🪙</b></p>':'<p>🔁 Replay: no XP or coins (rewards are for the first time only).<br><small>Your stars can still improve.</small></p>')+
+ (first?'<p>XP this run: <b>'+xp+'</b>'+(m===0?" (perfect bonus +"+Math.round(BASE[R.l]*.2)+")":"")+' · added: <b>+'+gain+' XP</b><br>Coins: <b>+'+(R.coins+cb)+' 🪙</b></p>':'<p>🔁 Replay: <b>+'+gain+' XP</b> (replays give 25%).<br><small>Coins are for the first time only. Your stars can still improve.</small></p>')+
  (nt.length?'<p><b>🏆 New trophy: '+nt.map(function(t){return t[1]+" "+t[2]}).join(", ")+' (+'+nt.length*50+' 🪙)</b></p>':"")+
  (lvl()>before?'<p><b>🎉 Level up! You are now level '+lvl()+'.</b></p>':"")+xpBar()+
  (wrong.length?'<h3>📝 Review your mistakes</h3>'+wrong.map(function(x){return '<div class="rv"><b>'+esc(x.q)+'</b><br><small>✔ '+esc(x.a)+'</small></div>'}).join(""):'<p><b>🎯 No mistakes to review!</b></p>')+
@@ -1006,23 +1007,49 @@ function finish(){
 }
 /* ===== 1v1 DUEL ===== */
 function opp(){if(!DU)return null;var k=Object.keys(DU.pl).filter(function(x){return x!==P.id});return k.length?DU.pl[k[0]]:null}
+function dHas(id){var r=[];for(var l=1;l<=3;l++)if(getQ(id,l).length)r.push(l);return r}
 function duelMenu(){
  stopT();g.className="card";
- var h='<button class="btn back" id="bk">Back</button><h2>⚔️ 1v1 Duel</h2><p>Both players answer the same questions. Higher score wins.</p>';
- if(!db)h+="<p>Duels need internet. Open the GitHub Pages version of the game.</p>";
- else{
-  h+='<h3>Join a friend</h3><input type="text" id="cd" maxlength="4" placeholder="CODE"><button class="btn" id="jn">Join duel</button><h3>Create a room</h3><small>Pick the lecture and level to play:</small>';
-  var any=0;
-  CUR.forEach(function(m){m.subs.forEach(function(s){s.lec.forEach(function(L,i){var id=m.id+"."+s.id+"."+(i+1);for(var l=1;l<=3;l++){if(getQ(id,l).length){any=1;h+='<button class="opt" data-id="'+id+'" data-l="'+l+'" data-t="'+esc(m.n+" · "+L[0])+'">'+esc(m.n+" · "+s.n+" · "+L[0])+" — "+LN[l]+'</button>'}}})})});
-  if(!any)h+="<p>No questions yet. Add questions to create a duel room.</p>";
+ var h='<button class="btn back" id="bk">Back</button><h2>⚔️ 1v1 Duel</h2><p>Challenge a friend! You both answer the same questions and the higher score wins.</p>';
+ if(!db){g.innerHTML=h+"<p>Duels need internet. Open the GitHub Pages version of the game.</p>";document.getElementById("bk").onclick=home;return}
+ g.innerHTML=h+'<button class="btn nav" id="mk">🎲 Create a room<br><small>Pick a topic, then send your friend the code</small></button><button class="btn nav" id="jo">🔑 Join a friend<br><small>Got a code? Enter it here</small></button>';
+ document.getElementById("bk").onclick=home;
+ document.getElementById("mk").onclick=function(){duelPick()};
+ document.getElementById("jo").onclick=duelJoin;
+}
+function duelJoin(){
+ g.innerHTML='<button class="btn back" id="bk">Back</button><h2>🔑 Join a friend</h2><p>Ask your friend for the 4-letter code and type it below.</p><input type="text" id="cd" maxlength="4" placeholder="CODE" autocomplete="off" autocapitalize="characters"><button class="btn" id="jn">Join duel</button><p id="er"></p>';
+ document.getElementById("bk").onclick=duelMenu;
+ document.getElementById("jn").onclick=function(){var c=document.getElementById("cd").value.trim().toUpperCase();if(c.length!==4){document.getElementById("er").textContent="The code has 4 characters.";return}joinRoom(c,null)};
+}
+function mkRoom(id,l,t){
+ var n=getQ(id,l).length,o=[];for(var i=0;i<n;i++)o.push(i);o=shuf(o).slice(0,QPR);
+ var c="",a="ABCDEFGHJKMNPQRSTUVWXYZ23456789";for(var j=0;j<4;j++)c+=a[Math.floor(Math.random()*a.length)];
+ joinRoom(c,{id:id,l:l,t:t,o:o})
+}
+function dPool(mi,lid){var p=[];CUR.forEach(function(m,i){if(mi!=null&&i!==mi)return;m.subs.forEach(function(s){s.lec.forEach(function(L,j){var id=m.id+"."+s.id+"."+(j+1);if(lid!=null&&id!==lid)return;dHas(id).forEach(function(l){p.push({id:id,l:l,t:m.n+" · "+L[0]})})})})});return p}
+function duelPick(mi,lid,lt){
+ var RB='<button class="btn nav" id="rnd">🎲 Random<br><small>'+(lid!=null?"Random difficulty":mi!=null?"Random lecture &amp; difficulty":"Random subject, lecture &amp; difficulty")+'</small></button><p>Or choose yourself:</p>';
+ var h='<button class="btn back" id="bk">Back</button><h2>🎲 Create a room</h2>',any=0;
+ if(mi==null){
+  h+=RB+'<p>1️⃣ Choose a subject:</p>';
+  CUR.forEach(function(m,i){var ok=0;m.subs.forEach(function(s){s.lec.forEach(function(L,j){if(dHas(m.id+"."+s.id+"."+(j+1)).length)ok=1})});if(ok){any=1;h+='<button class="opt" data-m="'+i+'">'+(m.e||"")+" "+esc(m.n)+'</button>'}});
+ }else if(lid==null){
+  h+=RB+'<p>2️⃣ Choose a lecture:</p>';
+  CUR[mi].subs.forEach(function(s){s.lec.forEach(function(L,j){var id=CUR[mi].id+"."+s.id+"."+(j+1);if(dHas(id).length){any=1;h+='<button class="opt" data-id="'+id+'" data-t="'+esc(L[0])+'">'+(s.e||"")+" "+esc(s.n)+" · "+esc(L[0])+'</button>'}})});
+ }else{
+  h+=RB+'<p>3️⃣ Choose the difficulty:</p>';
+  dHas(lid).forEach(function(l){any=1;h+='<button class="opt" data-l="'+l+'">'+["","🟢 ","🟡 ","🔴 "][l]+LN[l]+'</button>'});
  }
- g.innerHTML=h;document.getElementById("bk").onclick=home;
- if(!db)return;
- document.getElementById("jn").onclick=function(){var c=document.getElementById("cd").value.trim().toUpperCase();if(c.length===4)joinRoom(c,null)};
+ if(!any){h=h.replace(RB,"");h+="<p>No questions yet. Add questions to create a duel room.</p>"}
+ g.innerHTML=h;
+ var rn=document.getElementById("rnd");if(rn)rn.onclick=function(){var p=dPool(mi,lid);if(!p.length)return;var x=p[Math.floor(Math.random()*p.length)];mkRoom(x.id,x.l,x.t)};
+ document.getElementById("bk").onclick=function(){if(lid!=null)duelPick(mi);else if(mi!=null)duelPick();else duelMenu()};
  g.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){
-  var id=b.dataset.id,l=+b.dataset.l,n=getQ(id,l).length,o=[];for(var i=0;i<n;i++)o.push(i);shuf(o);
-  var c="",a="ABCDEFGHJKMNPQRSTUVWXYZ23456789";for(var j=0;j<4;j++)c+=a[Math.floor(Math.random()*a.length)];
-  joinRoom(c,{id:id,l:l,t:b.dataset.t,o:o})}});
+  if(lid!=null){
+   mkRoom(lid,+b.dataset.l,CUR[mi].n+" · "+lt)
+  }else if(mi!=null)duelPick(mi,b.dataset.id,b.dataset.t);
+  else duelPick(+b.dataset.m)}});
 }
 function joinRoom(code,meta){
  DU={code:code,ph:"lobby",ready:false,pl:{},meta:meta,ref:db.ref("rooms/"+code)};
